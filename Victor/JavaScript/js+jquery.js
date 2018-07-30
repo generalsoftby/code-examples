@@ -53,7 +53,7 @@ class Chat
                 stopConnectingInterval();
             } else if (!this.reconnectInterval)
             {
-                return this.reconnectInterval = setInterval(this.connect, this.settings.reconnectTimeInterval);
+                return this.reconnectInterval = setInterval(this.connect.bind(this), this.settings.reconnectTimeInterval);
             }
         };
 
