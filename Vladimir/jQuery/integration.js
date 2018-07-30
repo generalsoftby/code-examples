@@ -5,9 +5,6 @@ $(function () {
         return;
     }
 
-
-   // CREATOR ORDER
-
     $(document).on('submit', '.order-form', function (e) {
         e.preventDefault();
 
@@ -69,8 +66,6 @@ $(function () {
             .prop('disabled', false);
     });
 
-    // CREATOR UPLOADER
-
     $(document).on('change keyup switchChange.bootstrapSwitch', '.uploader-form', function (e) {
         let $form = $(this);
         let $input = $(e.target);
@@ -131,8 +126,6 @@ $(function () {
             },
         }));
     });
-
-    //CREATOR CONSTRUCTOR
 
     $(document).on('change keyup switchChange.bootstrapSwitch', '.constructor-form', function (e) {
         let $form = $(this);
