@@ -16,6 +16,7 @@ class Chat
             chatMessageAudioFile: '/sounds/chat-message.mp3',
             reconnectTimeInterval: 10 * 1000,
             messagesBlockSelector: '.rq-chat .direct-chat-messages .padder',
+            messagesContainerSelector: '.rq-chat .direct-chat-messages',
         };
     }
 
@@ -90,7 +91,9 @@ class Chat
 
     scrollToBottom()
     {
-        $('.rq-chat .direct-chat-messages').scrollTop($('.rq-chat .direct-chat-messages')[0].scrollHeight);
+    	let messagesContainer = $(this.settings.messagesContainerSelector);
+
+        messagesContainer.scrollTop(messagesContainer[0].scrollHeight);
     }
 
     newMessageIndicate()
@@ -102,7 +105,7 @@ class Chat
 
         let counter = Cookies.get('unread-massages');
 
-        counter = counter === void 0 ? 0 : parseInt(counter);
+        counter = counter === undefined ? 0 : parseInt(counter);
 
         Cookies.set('unread-massages', counter + 1, {path: ''});
 
@@ -114,7 +117,7 @@ class Chat
         let counter = Cookies.get('unread-massages');
         let indicator = $('#chat-unread-indicate');
 
-        counter = counter === void 0 ? 0 : parseInt(counter);
+        counter = counter === undefined ? 0 : parseInt(counter);
 
         indicator.html(counter);
 
