@@ -33,7 +33,6 @@ $(document).ready(function () {
 
     $('.phone-mask').inputmask("+7(999)999-99-99");
 
-
     $(document).on('click', '.letter_search', function (e) {
         e.preventDefault();
         let key = $(this).data('key');
@@ -42,7 +41,6 @@ $(document).ready(function () {
         form.submit();
     });
 
-    //ajax-tab
     $(document).on('click', '.ajax-tab', function (e) {
         if ($(this).attr('loaded')) {
 
