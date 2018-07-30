@@ -114,7 +114,7 @@ class Chat
         let counter = Cookies.get('unread-massages');
         let indicator = $('#chat-unread-indicate');
 
-        counter = counter === void 0 ? 0 : parseInt(counter);
+        counter = counter === undefined ? 0 : parseInt(counter);
 
         indicator.html(counter);
 
