@@ -1,0 +1,41 @@
+/deep/ .presets-table {
+
+    td {
+        line-height: 28.25px;
+
+        &.preset-label {
+            width: 50%;
+        }
+
+        &.input {
+            width: calc(50% - 75px - 75px);
+            padding-right: 5px;
+
+            > div {
+                padding: 0 10px;
+                display: inline-block;
+            }
+
+            input {
+                border: none;
+                color: #f8f8f8;
+                background-color: rgba(51, 51, 51, 0.425);
+                margin-right: 10px;
+            }
+        }
+
+        &.button {
+            width: 75px;
+
+            button {
+                margin: 0 auto;
+                display: block;
+            }
+        }
+    }
+}
+
+.tab-content {
+    width: 100%;
+    overflow: visible;
+}
