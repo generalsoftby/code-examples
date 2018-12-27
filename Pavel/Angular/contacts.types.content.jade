@@ -1,0 +1,10 @@
+.filter(ng-class="{'table-config' : uiState.is('contacts_table_config_app')}")
+    div(ui-view="submenu")
+    div(ui-view="filter")
+
+div(ui-view="widgets", ng-class="{shown: $root.showContactsWidgets}", class="widgets-container")
+
+deleted-item(ng-repeat="item in deleted", index="$index")
+
+div(ui-view="table")
+div(ui-view="statistics", ng-show="showStatistics")
