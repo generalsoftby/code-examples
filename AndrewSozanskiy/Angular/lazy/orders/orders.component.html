@@ -1,0 +1,27 @@
+<div class="container">
+  <kendo-grid [data]="gridData" [height]="410" [pageSize]="state.take" [skip]="state.skip" [sort]="state.sort" [filter]="state.filter"
+    [sortable]="true" [pageable]="true" [filterable]="true" (dataStateChange)="dataStateChange($event)" (edit)="editHandler($event)"
+    (cancel)="cancelHandler($event)" (save)="saveHandler($event)">
+    <kendo-grid-column field="id" title="Id" [filterable]="false" width="40">
+    </kendo-grid-column>
+    <kendo-grid-column field="date" title="Date" filter="date" format="{0:d}">
+    </kendo-grid-column>
+    <kendo-grid-column field="orderDate" title="Order Date" filter="date" format="{0:d}">
+    </kendo-grid-column>
+    <kendo-grid-column field="userFirstName" [editable]="isEditable" title="Name">
+    </kendo-grid-column>
+    <kendo-grid-column field="orderId" title="Order ID">
+    </kendo-grid-column>
+    <kendo-grid-column field="orderType" title="Order Type">
+    </kendo-grid-column>
+    <kendo-grid-column field="seller" title="Seller">
+    </kendo-grid-column>
+    <kendo-grid-command-column title="Command" width="200">
+      <ng-template kendoGridCellTemplate>
+        <button kendoGridEditCommand [primary]="true">Edit</button>
+        <button kendoGridSaveCommand [disabled]="formGroup?.invalid">Update</button>
+        <button kendoGridCancelCommand>Cancel</button>
+      </ng-template>
+    </kendo-grid-command-column>
+  </kendo-grid>
+</div>
