@@ -1,4 +1,4 @@
-div(scroll-bar, rebuild-on='scrollbarRebuild:ddCreator', ng-style='{height:height}', bottom, scroll-to-bottom-on='scrollbarRedraw:toBottom')
+div(scroll-bar, rebuild-on='scrollbarRebuild:ddCreator', ng-style='{ height: height }', bottom, scroll-to-bottom-on='scrollbarRedraw:toBottom')
     .field-container(ng-repeat='field in model.options | orderBy:"pos" track by $index' ng-if='!(newOptionIsEdit && $last)', ng-init='rebuildScrollBar()')
         input.text-input(type='text', placeholder='{{getPlaceholder($index)}}', ng-model='field.name', ng-keyDown='goToLastEmptyInput($event.keyCode)', tabindex='-1', maxlength='26', id='option{{$index}}', ng-disabled='disable && isSaved(field)', ng-change='checkEmptyOption(field, $index)')
         button.up(style='display:block;padding:0!important', ng-click='moveUp(field)', ng-disabled='field.pos == 1' )
@@ -8,6 +8,6 @@ div(scroll-bar, rebuild-on='scrollbarRebuild:ddCreator', ng-style='{height:heigh
         button.delete(style='display:block', ng-click='deleteItem(field,$index)', ng-disabled='model.options.length <= 2', ng-hide='disable && isSaved(field)')
             i.fa.fa-times
     .field-container
-        input.text-input#add-new-field(type='text', placeholder='{{getPlaceholder()}}', ng-model='setOption', ng-model-options='{getterSetter: true}', ng-blur='resetInput()', ng-keyDown='goToLastEmptyInput($event.keyCode)', maxlength='26', tabindex='-1')
+        input.text-input#add-new-field(type='text', placeholder='{{getPlaceholder()}}', ng-model='setOption', ng-model-options='{ getterSetter: true }', ng-blur='resetInput()', ng-keyDown='goToLastEmptyInput($event.keyCode)', maxlength='26', tabindex='-1')
     .field-container(ng-show='newOptionIsEdit && getLastOption().name')
         input.text-input(type='text', placeholder='{{getPlaceholder()}}', maxlength='0', tabindex='-1', ng-focus='focusAddOptionInput()')

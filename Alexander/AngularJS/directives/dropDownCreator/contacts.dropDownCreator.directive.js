@@ -2,12 +2,12 @@
 
 angular
     .module('app.contacts')
-    .directive('dropDownCreater', dropDownCreater);
+    .directive('dropDownCreator', dropDownCreator);
 
-function dropDownCreater() {
+function dropDownCreator() {
     return {
         restrict: 'E',
-        templateUrl: '/templates/contacts/dropDownCreater/contacts.dropDownCreater.html',
+        templateUrl: '/templates/contacts/dropDownCreator/contacts.dropDownCreator.html',
         scope: {
             model: '=',
             disable: '=',
@@ -22,7 +22,7 @@ function dropDownCreater() {
             var push = function (option) {
                 var maxPosition = Helpers.maxPropertyValue($scope.model.options, 'pos');
 
-                option.pos = ++ maxPosition;
+                option.pos = maxPosition + 1;
                 $scope.model.options.push(option);
             };
 
@@ -48,11 +48,6 @@ function dropDownCreater() {
             $scope.rebuildScrollBar = function () {
                 $scope.$broadcast('scrollbarRebuild:ddCreator');
             };
-
-            if (!$scope.model) {
-                $scope.model = angular.copy(ContactsInitialFieldsFactory.init('select'));
-                $scope.$emit('dropDownModel', $scope.model);
-            }
 
             $scope.checkEmptyOption = function (option) {
                 if (!option.name.length) {
@@ -85,7 +80,7 @@ function dropDownCreater() {
 
                 angular.forEach($scope.model.options, function (value) {
                     if (currentPos < value.pos) {
-                        value.pos --;
+                        value.pos--;
                     }
                 });
 
@@ -95,12 +90,8 @@ function dropDownCreater() {
             $scope.setOption = function (newOptionName) {
                 var editableOption = _.last($scope.model.options);
 
-                if (!angular.isDefined(newOptionName) && !$scope.newOptionIsEdit) {
-                    return '';
-                }
-
                 if (!angular.isDefined(newOptionName)) {
-                    return editableOption.name;
+                    return !$scope.newOptionIsEdit ? '' : editableOption.name;
                 }
 
                 if (!$scope.newOptionIsEdit) {
@@ -118,18 +109,18 @@ function dropDownCreater() {
                     $scope.newOptionIsEdit = false;
                 }
 
-                return editableOption.name = newOptionName;
+                editableOption.name = newOptionName;
+
+                return editableOption.name;
             };
 
             $scope.resetInput = function () {
-                if ($scope.newOptionIsEdit) {
-                    $scope.newOptionIsEdit = false;
-                }
+                $scope.newOptionIsEdit = false;
             };
 
             $scope.goToLastEmptyInput = function (keyCode) {
                 if (keyCode !== 9) {    //  checks if Tab is pressed
-                    return
+                    return;
                 }
 
                 var needToFill = _.find($scope.model.options, function (value) {
@@ -182,7 +173,7 @@ function dropDownCreater() {
 
                 $timeout(function () {
                     newOptionInput[0].focus();
-                },100);
+                }, 100);
             };
         }
     };
