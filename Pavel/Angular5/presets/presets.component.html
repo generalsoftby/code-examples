@@ -1,0 +1,58 @@
+<div class="tab-content">
+    <widget-component>
+        <div widget-header>
+            <h3>{{ 'PRESETS.TITLE' | translate }}</h3>
+        </div>
+        <div widget-body>
+            <table class="table table-striped presets-table" id="presetsList">
+                <tr *ngFor="let preset of presets; let presetIndex = index;">
+                    <td class="preset-label">
+                        {{ preset.label }}
+                    </td>
+
+                    <td class="input">
+                        <div *ngFor="let field of preset.variables; let j = index;"
+                             [ngStyle]="{ width: (100 / preset.variables.length) + '%'}" [ngSwitch]="preset.presetType">
+
+                            <base-autocomplete (afterInit)="autocompleteCreated($event, presetIndex)"
+                                               (selectSuggestion)="selectValue($event, presetIndex, field)"
+                                               *ngSwitchCase="'autocomplete'"
+                                               [suggestions]="autocompleteData[presetIndex]">
+                                <base-input (input)="change(preset, $event, presetIndex)"
+                                            [(ngModel)]="values[presetIndex][field]"
+                                            placeholder="{{ getPlaceholder(preset, j) }}">
+                                </base-input>
+                            </base-autocomplete>
+                            <base-date-picker *ngSwitchCase="'date'"
+                                              [(ngModel)]="values[presetIndex][field]"
+                                              placeholder="{{ getPlaceholder(preset, j) }}">
+                            </base-date-picker>
+                            <base-select *ngSwitchCase="'action'"
+                                         [(ngModel)]="values[presetIndex][field]"
+                                         [options]="actions"
+                                         placeholder="{{ getPlaceholder(preset, j) }}">
+                            </base-select>
+                            <base-input *ngSwitchDefault
+                                        [(ngModel)]="values[presetIndex][field]"
+                                        placeholder="{{ getPlaceholder(preset, j) }}">
+                            </base-input>
+
+                        </div>
+                    </td>
+
+                    <td class="button">
+                        <button (click)="search(preset, presetIndex)" class="btn btn-sm btn-primary button-search">
+                            {{ 'COMMON.BUTTON.SEARCH' | translate }}
+                        </button>
+                    </td>
+
+                    <td class="button">
+                        <button (click)="clear(presetIndex)" class="btn  btn-sm btn-secondary button-clear">
+                            {{ 'COMMON.BUTTON.CLEAR' | translate }}
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </widget-component>
+</div>

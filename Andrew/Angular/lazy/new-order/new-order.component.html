@@ -1,0 +1,97 @@
+<div class="container">
+  <h4 class="title">Order № {{orderNumberMonth}} from {{currentdate | date:'shortDate'}}</h4>
+  <div class="border">
+    <strong class="sub_title">Customer</strong>
+    <form [formGroup]="form" (ngSubmit)="save()" novalidate>
+      <div class="form-group row">
+        <label for="inputEmail" class="col-sm-2 col-form-label">Email address</label>
+        <div class="col-sm-6">
+          <input [ngClass]="{'error': form.controls['userEmail'].errors && !form.controls['userEmail'].pristine}" type="email"
+            class="form-control" id="inputEmail" placeholder="your@gmail.com" name="userEmail" formControlName="userEmail">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputFirstName" class="col-sm-2 col-form-label">Firsr Name</label>
+        <div class="col-sm-6">
+          <input [ngClass]="{'error': form.controls['userFirstName'].errors && !form.controls['userFirstName'].pristine}"
+            type="text" class="form-control" id="inputFirstName" placeholder="First Name" name="userFirstName"
+            formControlName="userFirstName">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
+        <div class="col-sm-6">
+          <input [ngClass]="{'error': form.controls['userLastName'].errors && !form.controls['userLastName'].pristine}"
+            type="text" class="form-control" id="inputLastName" placeholder="Last Name" name="userLastName"
+            formControlName="userLastName">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputTel" class="col-sm-2 col-form-label">Tel.</label>
+        <div class="col-sm-6">
+          <input [ngClass]="{'error': phoneNumberValid}" type="text" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'ua'}"
+            (hasError)="hasError($event)" (ng2TelOutput)="getNumber($event)" />
+        </div>
+      </div>
+      <div class="divider"></div>
+      <strong class="sub_title">Order</strong>
+      <div class="form-group row">
+        <label for="inputItems" class="col-sm-2 col-form-label">Items</label>
+        <div class="col-sm-6">
+          <input [ngClass]="{'error': form.controls['items'].errors && !form.controls['items'].pristine}" type="text"
+            class="form-control" id="inputItems" placeholder="Items" name="items" formControlName="items">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="orderTypeDropdown" class="col-sm-2 col-form-label">Order Type</label>
+        <div class="col-sm-6">
+          <div class="input-group">
+            <select [ngClass]="{'error': form.controls['orderType'].errors && !form.controls['orderType'].pristine}"
+              class="custom-select" id="orderTypeDropdown" formControlName="orderType">
+              <option value="Wholesale">Wholesale</option>
+              <option value="Retail">Retail</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="sellerDropdown" class="col-sm-2 col-form-label">Seller</label>
+        <div class="col-sm-6">
+          <div class="input-group">
+            <select [ngClass]="{'error': form.controls['seller'].errors && !form.controls['seller'].pristine}" class="custom-select"
+              id="sellerDropdown" formControlName="seller">
+              <option value="Magic Tips Lab">Magic Tips Lab</option>
+              <option value="Triolan Gde Inet">Triolan Gde Inet</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="orderID" class="col-sm-2 col-form-label">Order ID</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="orderID" name="orderId" formControlName="orderId">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="orderDate" class="col-sm-2 col-form-label">Order Date</label>
+        <div class="col-sm-6">
+          <div class="example-wrapper" id="orderDate">
+            <kendo-datepicker (valueChange)="onChangeDate($event)" [(value)]="orderDate"></kendo-datepicker>
+          </div>
+        </div>
+      </div>
+      <div class="form-group comment">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Comment</span>
+          </div>
+          <textarea class="form-control" aria-label="With textarea" formControlName="comment"></textarea>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="button-wrapper">
+        <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!form.valid">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

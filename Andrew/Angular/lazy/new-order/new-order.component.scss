@@ -1,0 +1,45 @@
+.container {
+  .title {
+    margin: 30px 0px 30px 0px;
+  }
+  .border {
+    margin-bottom: 50px;
+    .divider {
+      display: flex;
+      margin: 30px 0px 0px 0px;
+      position: relative;
+      &:after {
+        content: '';
+        height: 1px;
+        width: 100%;
+        background: #dee2e6;
+        position: absolute;
+        left: 0;
+      }
+    }
+    .form-group {
+      padding: 0px 30px 0px 30px !important;
+    }
+    .sub_title {
+      display: block;
+      padding: 20px 0px 20px 20px;
+    }
+    .comment {
+      margin: 30px 0px 30px 0px !important;
+    }
+    textarea {
+      resize: none;
+    }
+    .button-wrapper {
+      margin: 30px 0px 30px 0px;
+      padding: 0px 30px 0px 30px;
+      button:disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.error {
+  border: 1px solid red;
+}

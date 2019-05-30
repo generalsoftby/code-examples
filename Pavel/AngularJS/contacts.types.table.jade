@@ -1,0 +1,59 @@
+div.table-overlay(ng-if="tableMuted")
+table.contacts-list.collapsible-table(dynamic-table, fixed-columns="40,34", ng-class="{'table-muted' : tableMuted, editable: editable}", ng-init="initTable()", ng-hide="tableHidden")
+    tr
+        th.col-check
+            div
+                input.selector-checkbox.selector-checkbox-bold.selector-contacts-checkbox-all(type='checkbox', id='contactsListCheckboxAll', ng-change="checkAll()", ng-model="selection.all")
+                label(for='contactsListCheckboxAll')
+            
+        th(ng-repeat="item in tableConfig.fields track by $index", ng-class="{  resizable: $index > 0 }", ng-style="{ width: getWidth(tableConfig.width[$index]), 'max-width': getWidth(tableConfig.width[$index]), 'min-width': getWidth(tableConfig.width[$index]) }", ng-init="collapsed[$index] = false", ng-if="item && item.type", index="{{ $index }}")
+            div
+                span
+                    | {{ translate('contacts.fields_list.' + item.name) }}
+
+        th.col-menu.table-config       
+
+    tr(dynamic-contact-item, ng-repeat="contact in contacts", ng-if="!contact.deleted")
+
+.table-nav(ng-class="{'table-muted' : tableMuted}")
+    .floatleft
+        .dropdown
+            button#dLabel(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false' ng-translate)
+                | {{ 'contacts.total_selected' | translate }} ({{ selection.rows.length }})
+                span.caret
+            ul.dropdown-menu(aria-labelledby='dLabel')
+                li
+                    a(href='javascript:;', ng-click="selectByPermit(true)") {{ 'contacts.has_ad_permission' | translate }}
+                li
+                    a(href='javascript:;', ng-click="selectByPermit(false)") {{ 'contacts.has_no_ad_permission' | translate }}
+                li
+                    a(href='javascript:;' ng-click="checkAll(true)") {{ 'contacts.all_contacts' | translate }}
+    .floatleft
+        .dropdown(ng-disabled="selection.rows.length == 0")
+            button#dLabel(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                | {{ 'contacts.select_action' | translate }}
+                span.caret
+            ul.dropdown-menu(aria-labelledby='dLabel')
+                li(ng-show="false")
+                    a(href='javascript:;', ng-click="assignModal(null, 'group', true)")
+                        | {{ 'contacts.assign_groups' | translate }}
+                li(ng-show="false")
+                    a(href='javascript:;', ng-click="assignModal(null, 'type', true)")
+                        | {{ 'contacts.assign_types' | translate }}
+                li
+                    a(href='javascript:;', ng-click="deleteContacts(selection.rows, true)")
+                        | {{ 'contacts.delete' | translate }} 
+                        
+    .floatleft.stat-chek
+        label
+            | Statistiken
+            input#contactsStatsCheckslide0.selector-checkslide(type='checkbox', ng-model="$parent.showStatistics")
+            label(for='contactsStatsCheckslide0')
+
+    .floatright
+        dropdown-select(dropdown-select, placeholder="'contacts.per_page' | translate", model="perPage", source="perPageOptions", field="'name'", on-change="perPageChanged")
+
+    .floatright.pager
+        .page-num {{ 'contacts.total' | translate:{amount:pagination.total} }} / {{ 'contacts.shown' | translate:{amount: pagination.totalPages} }}
+
+        uib-pagination.pagination-sm.pull-right.custom-pagination(ng-show="pagination.total > pagination.perPage"  boundary-links="false" total-items="pagination.total" items-per-page="pagination.perPage" ng-model="pagination.page" ng-change="paginate(pagination.page)" rotate="false" max-size="5" direction-links="false")
