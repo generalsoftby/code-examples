@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Modal extends Component {
+class ModalDiscount extends Component {
     constructor(props) {
         super(props);
         const { discount, discountType } = this.props;
@@ -155,4 +155,4 @@ class Modal extends Component {
     }
 }
 
-export default Modal;
+export default ModalDiscount;
