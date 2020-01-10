@@ -1,0 +1,4 @@
+{
+    "name": "ImageRecognitionDashboard",
+    "main": "./ImageRecognitionDashboard.js"
+}

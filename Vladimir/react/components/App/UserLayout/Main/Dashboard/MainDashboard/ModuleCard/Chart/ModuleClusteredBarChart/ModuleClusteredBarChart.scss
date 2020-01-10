@@ -1,0 +1,46 @@
+.card-stat-modeles-footer{
+  position: relative;
+  border-top: 1px solid #E3E3E3;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  .item-legend{
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 14px;
+    letter-spacing: 0.5px;
+    color: #304156;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-left: 25px;
+    &:before {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      left: 0px;
+      top: 0px;
+      background-repeat: no-repeat;
+    }
+    &.item-detected:before {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='6.81902' cy='7.43865' r='6.48504' fill='%23EA526F'/%3e%3c/svg%3e ");
+    }
+    &.item-pending:before {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='6.90398' cy='7.43865' r='6.48504' fill='%23F2C57C'/%3e%3c/svg%3e ");
+    }
+    &.item-authorized:before {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='6.92058' cy='7.43865' r='6.48504' fill='%233693FF'/%3e%3c/svg%3e ");
+    }
+    &.item-no-ingfrigements:before {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='6.92058' cy='7.43865' r='6.48504' fill='%232B76CC'/%3e%3c/svg%3e ");
+    }
+    &.item-removed:before {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='6.92058' cy='7.43865' r='6.48504' fill='%233BC8BA'/%3e%3c/svg%3e ");
+    }
+    &.item-second-hand:before {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='6.81902' cy='7.43865' r='6.48504' fill='%23304156'/%3e%3c/svg%3e ");
+    }
+  }
+}

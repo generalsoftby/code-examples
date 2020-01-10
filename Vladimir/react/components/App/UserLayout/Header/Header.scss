@@ -1,0 +1,230 @@
+.gr-header{
+    height: 170px;
+    .logo-container{
+        width: 284px;
+        .logo-img{
+            margin-top: 49px;
+            margin-left: 44px;
+            width: 231px;
+            height: 72px;
+        }
+    }
+    .gr-header-content{
+        padding: 0px 42px 0px 42px;
+        .header-statistic{
+            margin-left: 0;
+            margin-right: 42px;
+            padding-left: 0;
+            li{
+                display: inline-block;
+                list-style-type: none;
+                border-left: 2px solid #C4C4C4;
+                padding-right: 30px;
+                padding-left: 30px;
+                margin-top: 56px;
+                margin-bottom: 0px;
+                &:first-child{
+                    padding-left: 0px;
+                    border-left: 0px;
+                }
+                &:last-child{
+                    padding-right: 0px;
+                }
+                .stat-label{
+                    display: block;
+                    text-align: right;
+                    font-family: 'Montserrat', sans-serif;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 16px;
+                    color: #000000;
+                    opacity: 0.4;
+                }
+                .stat-value{
+                    display: block;
+                    margin-top: 13px;
+                    text-align: right;
+                    font-family: HeliosCondBold;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 32px;
+                    line-height: 32px;
+                    color: #232735;
+                }
+            }
+        }
+        .header-right-block{
+            //max-width: 650px;
+            width: 590px;
+            margin: 0;
+            padding: 0;
+            margin-top: 35px;
+            .block-top{
+                margin: 0;
+                padding: 0;
+                .block-top-item{
+                    margin: 0;
+                    padding: 0;
+                    padding-right: 7px;
+                    padding-left: 7px;
+                    &:first-child{
+                        padding-left: 0px;
+                    }
+                    &:last-child{
+                        padding-right: 0px;
+                    }
+                    .breifcase-container{
+                        position: relative;
+                        .label-container{
+                            margin-left: 34px;
+                            font-family: 'Montserrat', sans-serif;
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 14px;
+                            letter-spacing: 0.5px;
+                            color: #304156;
+                            opacity: 0.5;
+                            white-space: nowrap;
+                        }
+                        &:before{
+                            content: "";
+                            position: absolute;
+                            width: 23px;
+                            height: 17px;
+                            left: 0px;
+                            top: 2px;
+                            background-image: url("data:image/svg+xml;charset=UTF-8, %3csvg width='24' height='18' viewBox='0 0 24 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='0.512695' y='3.56006' width='23' height='14' rx='3' fill='%23474444'/%3e%3crect x='9.24707' y='1.06006' width='5.53192' height='6' rx='2.5' stroke='%23474444'/%3e%3cpath d='M0.512695 9.56006H23.5127' stroke='%23F0F2F5'/%3e%3crect x='10.5127' y='7.56006' width='3' height='5' rx='1.5' fill='%23F0F2F5'/%3e%3c/svg%3e");
+                            background-repeat: no-repeat;
+                            background-position: 50% 50%;
+                        }
+                    }
+                    .client-name-container{
+                        position: relative;
+                        display: block;
+                        text-align: left;
+                        .label-container{
+                            display: block;
+                            padding-left: 32px;
+                            padding-top: 7px;
+                            font-family: 'Montserrat', sans-serif;
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 14px;
+                            letter-spacing: 0.5px;
+                            color: #304156;
+                            opacity: 0.5;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                        &:before{
+                            content: "";
+                            position: absolute;
+                            width: 24px;
+                            height: 24px;
+                            left: 0px;
+                            top: 0px;
+                            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='25' height='25' viewBox='0 0 25 25' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.1328 12.0601C14.8942 12.0601 17.1328 9.82148 17.1328 7.06006C17.1328 4.29863 14.8942 2.06006 12.1328 2.06006C9.37139 2.06006 7.13281 4.29863 7.13281 7.06006C7.13281 9.82148 9.37139 12.0601 12.1328 12.0601Z' fill='%23474444'/%3e%3cpath d='M16.6328 14.0601H7.63281C5.15045 14.0601 3.13281 16.0329 3.13281 18.4601V20.8601C3.13281 21.5225 3.68263 22.0601 4.36009 22.0601H19.9055C20.583 22.0601 21.1328 21.5225 21.1328 20.8601V18.4601C21.1328 16.0329 19.1152 14.0601 16.6328 14.0601Z' fill='%23474444'/%3e%3c/svg%3e ");
+                            background-repeat: no-repeat;
+                            background-position: 50% 50%;
+                        }
+                    }
+                    .analitic-container{
+                        position: relative;
+                        .label-container{
+                            padding-left: 28px;
+                            font-family: 'Montserrat', sans-serif;
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 14px;
+                            letter-spacing: 0.5px;
+                            color: #304156;
+                            opacity: 0.5;
+                            white-space: nowrap;
+                        }
+                        &:before{
+                            content: "";
+                            position: absolute;
+                            width: 21px;
+                            height: 21px;
+                            left: 0px;
+                            top: 2px;
+                            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='21' height='21' viewBox='0 0 21 21' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='10.7354' cy='10.5601' r='10' fill='%23F5CC37'/%3e%3c/svg%3e ");
+                            background-repeat: no-repeat;
+                            background-position: 50% 50%;
+                        }
+                    }
+                    .logout-container{
+                        position: relative;
+                        padding-right: 8px;
+                        .label-container{
+                            margin-left: 28px;
+                            font-family: 'Montserrat', sans-serif;
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 14px;
+                            letter-spacing: 0.5px;
+                            color: #304156;
+                            opacity: 0.5;
+                            white-space: nowrap;
+                            cursor: pointer;
+                            text-decoration: none;
+                            &:active{
+                                opacity: 1;
+                                color: #3693FF;
+                            }
+                        }
+                        &:before{
+                            content: "";
+                            position: absolute;
+                            width: 24px;
+                            height: 24px;
+                            left: 0px;
+                            top: 0px;
+                            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.72339 4H16.9068C17.8483 4 18.6307 4.92152 18.6307 6.03102V7.54145C18.6456 8.78379 17.0571 8.78379 17.072 7.54145V6.03102C17.072 5.90763 17.0115 5.83752 16.9068 5.83752H5.72339C5.61869 5.83752 5.55917 5.90763 5.55917 6.03102V17.9685C5.55917 18.0919 5.61868 18.1625 5.72339 18.1625H16.9068C17.0115 18.1625 17.072 18.0919 17.072 17.9685V16.3568C17.0571 15.1145 18.6456 15.1145 18.6307 16.3568V17.9685C18.6307 19.078 17.8482 20 16.9068 20H5.72339C4.78195 20 4 19.078 4 17.9685V6.03102C4 4.92152 4.78194 4 5.72339 4ZM18.8689 9.28674C18.999 9.28989 19.1262 9.32553 19.2389 9.39039L22.6117 11.3296C23.1294 11.6276 23.1294 12.3719 22.6117 12.6699L19.2389 14.6091C18.7208 14.9066 18.5625 14.5343 18.5624 13.9388V12.852H11.6077C10.6332 12.8683 10.6332 11.1318 11.6077 11.148H18.5624V10.0603C18.5625 9.62581 18.4328 9.27657 18.8689 9.28674Z' fill='%23474444'/%3e%3c/svg%3e ");
+                            background-repeat: no-repeat;
+                            background-position: 50% 50%;
+                        }
+                        &:hover{
+                            .label-container{
+                                opacity: 1;
+                                text-decoration: none;
+                            }
+                            &:before{
+                                background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.72339 4H16.9068C17.8483 4 18.6307 4.92152 18.6307 6.03102V7.54145C18.6456 8.78379 17.0571 8.78379 17.072 7.54145V6.03102C17.072 5.90763 17.0115 5.83752 16.9068 5.83752H5.72339C5.61869 5.83752 5.55917 5.90763 5.55917 6.03102V17.9685C5.55917 18.0919 5.61868 18.1625 5.72339 18.1625H16.9068C17.0115 18.1625 17.072 18.0919 17.072 17.9685V16.3568C17.0571 15.1145 18.6456 15.1145 18.6307 16.3568V17.9685C18.6307 19.078 17.8482 20 16.9068 20H5.72339C4.78195 20 4 19.078 4 17.9685V6.03102C4 4.92152 4.78194 4 5.72339 4ZM18.8689 9.28674C18.999 9.28989 19.1262 9.32553 19.2389 9.39039L22.6117 11.3296C23.1294 11.6276 23.1294 12.3719 22.6117 12.6699L19.2389 14.6091C18.7208 14.9066 18.5625 14.5343 18.5624 13.9388V12.852H11.6077C10.6332 12.8683 10.6332 11.1318 11.6077 11.148H18.5624V10.0603C18.5625 9.62581 18.4328 9.27657 18.8689 9.28674Z' fill='%233693FF'/%3e%3c/svg%3e ");
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+            .block-bottom{
+                margin: 0;
+                padding: 0;
+                margin-top: 14px;
+                .block-bottom-item{
+                    margin: 0;
+                    padding: 0;
+                    padding-right: 7px;
+                    padding-left: 7px;
+                    &:first-child{
+                        padding-left: 0px;
+                    }
+                    &:last-child{
+                        padding-right: 0px;
+                    }
+                }
+
+            }
+
+        }
+    }
+}
+
+
