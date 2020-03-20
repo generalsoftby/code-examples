@@ -19,7 +19,7 @@ import './App.scss';
 //import reducer from "../../reducers";
 //import { createStore } from "redux";
 
-//const initialState = { tech: "React " };
+//const initialState = { tech: "React 16.5 " };
 //const store = createStore(reducer, initialState);
 
 
