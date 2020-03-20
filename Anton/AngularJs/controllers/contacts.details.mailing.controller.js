@@ -21,8 +21,6 @@ function ContactsDetailsMailingCtrl($scope, $log, $translate, $timeout, $filter,
         })
     };
 
-
-
     $scope.filterRecords = function () {
         $scope.filteredRecords = $filter('mailing')($scope.records, $scope.filters);
 
