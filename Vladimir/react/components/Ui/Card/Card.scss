@@ -1,0 +1,41 @@
+.gr-card{
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    background: #FFFFFF;
+    border: 1px solid #E6EBF5;
+    box-sizing: border-box;
+    border-radius: 4px;
+    .gr-card-header{
+        padding: 0px 56px 0px 56px;
+        border-bottom: 1px solid #E3E3E3;
+        min-height: 71px;
+        font-family: 'Montserrat', sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 23px;
+        line-height: 23px;
+        color: #3693FF;
+        .gs-toggle-icon {
+            display: block;
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            left: 17px;
+            top: 26px;
+            cursor: pointer;
+            background-repeat: no-repeat;
+            &.gs-toggle-icon-visible {
+                background-position: 0px 0px;
+                background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12 9.33333C12 10.8053 10.768 12 9.25 12C9.25 13.472 10.482 14.6667 12 14.6667C13.518 14.6667 14.75 13.472 14.75 12C14.75 10.528 13.518 9.33333 12 9.33333ZM12 4C6.35975 4 1 10.1973 1 12C1 13.8027 6.35975 20 12 20C17.6403 20 23 13.8027 23 12C23 10.1973 17.6403 4 12 4ZM12 17.3333C8.96263 17.3333 6.5 14.9453 6.5 12C6.5 9.05467 8.96263 6.66667 12 6.66667C15.0374 6.66667 17.5 9.05467 17.5 12C17.5 14.9453 15.0374 17.3333 12 17.3333Z' fill='%23304156'/%3e%3c/svg%3e ");
+            }
+
+            &.gs-toggle-icon-invisible {
+                background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12 9.33333C12 10.8053 10.768 12 9.25 12C9.25 13.472 10.482 14.6667 12 14.6667C13.518 14.6667 14.75 13.472 14.75 12C14.75 10.528 13.518 9.33333 12 9.33333ZM12 4C6.35975 4 1 10.1973 1 12C1 13.8027 6.35975 20 12 20C17.6403 20 23 13.8027 23 12C23 10.1973 17.6403 4 12 4ZM12 17.3333C8.96263 17.3333 6.5 14.9453 6.5 12C6.5 9.05467 8.96263 6.66667 12 6.66667C15.0374 6.66667 17.5 9.05467 17.5 12C17.5 14.9453 15.0374 17.3333 12 17.3333Z' fill='%23304156'/%3e%3cline x1='2.00245' y1='22.5096' x2='22.5858' y2='1.99755' stroke='%23304156' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e ");
+            }
+        }
+        .gr-card-caption{
+            margin: 26px 0px 10px 0px;
+        }
+    }
+}

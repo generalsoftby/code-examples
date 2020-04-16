@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KnowledgeCity</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <script>
+        function onSubmit(form) {
+          const data = $(form).serialize();
+
+          $.post('/auth', data)
+            .done(() => location.href='/list.html')
+            .fail(({ responseText }) => alert(responseText))
+          ;
+
+          return false;
+        }
+    </script>
+</head>
+<body>
+    <div class="login-form">
+        <img src="./img/Logo.svg" alt="Logo" class="logo"/>
+        <div>
+            <strong>Welcome to the Learning Management System</strong>
+            <span>Please log in to continue</span>
+        </div>
+        <div class="inputs">
+            <form onsubmit="return onSubmit(this)">
+                <div class="input">
+                    <img src="./img/user.svg" alt="User"/>
+                    <input type="text" name="username" placeholder="Username"/>
+                </div>
+                <div class="input">
+                    <img src="./img/password.svg" alt="Password"/>
+                    <input type="password" name="password" placeholder="Password"/>
+                </div>
+                <div class="input">
+                    <input type="checkbox" name="remember" value="1" id="remember"/>
+                    <label for="remember">Remember me</label>
+                </div>
+                <div class="button">
+                    <button type="submit">
+                        Log in
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+.logout {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: 30px;
+    background-color: #ECECEC;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.userlist {
+    width: 640px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border: solid thin #E2E2E2;
+    border-top: 10px solid #ED8E39;
+    border-collapse: collapse;
+}
+
+table td {
+    padding: 15px;
+}
+
+table tr:nth-child(2n) {
+    background-color: #ECECEC;
+}
+
+.name {
+    color: gray;
+    margin-top: 5px;
+}
+
+.group {
+    margin-top: 5px;
+}
+
+.check i {
+    color: green;
+    font-size: 20px;
+    float: right;
+}
+
+.pagination {
+    margin-top: 15px;
+    text-align: center;
+    display: block;
+}
+
+.pagination span {
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.pagination span.current {
+    border-bottom: #ED8E39 2px solid;
+}
