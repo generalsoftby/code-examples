@@ -1,0 +1,92 @@
+version: "3.7"
+
+services:
+
+  php: &php-template
+    build: ./docker/php
+    environment:
+      - APP_ENV
+      - APP_KEY
+      - APP_DEBUG
+      - "COMPOSER_AUTH={\"github-oauth\": {\"github.com\": \"${COMPOSER_AUTH}\"}}"
+      - MYSQL_PASSWORD
+      - REDIS_PASSWORD
+      - ECHO_CLIENT_KEY
+      - MAXMIND_LICENSE_KEY
+      - GOOGLE_APIKEY
+      - YANDEX_TRANSLATION_APIKEY
+      - REALFAVICONGENERATOR_APIKEY
+      - CURRENCY_CONVERTER_SERVICE_NAME
+      - CURRENCY_CONVERTER_SERVICE_KEY
+      - DEFUSE_ENCRYPTION_SECRET_KEY
+    volumes:
+      - tmp:/tmp
+      - ./src:/app
+      - ./storage/php/logs/:/app/storage/logs/
+      - ./storage/php/sessions/:/app/storage/framework/sessions/
+
+  php-schedule:
+    <<: *php-template
+    command: /bin/sh -c "while [ true ]; do (php artisan schedule:run --verbose --no-interaction &); sleep 60; done"
+
+  php-queue:
+    <<: *php-template
+    command: php artisan queue:work --sleep=1 --tries=1
+    deploy:
+      mode: replicated
+      replicas: 4
+
+  nginx:
+    build: ./docker/nginx
+    volumes:
+      - ./storage/nginx/sites/showcases/:/etc/nginx/sites/showcases/
+      - ./storage/nginx/ssl/showcases/:/etc/nginx/ssl/showcases/
+      - ./src:/app
+      - ./storage/certbot/letsencrypt/conf/:/etc/letsencrypt/
+      - ./storage/nginx/webroot/:/var/www/html/
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - echo
+      - portainer
+
+  echo:
+    build: ./docker/echo
+    environment:
+      - APP_DEBUG
+      - ECHO_CLIENT_KEY
+      - REDIS_PASSWORD
+    depends_on:
+      - redis
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE=ventum
+      - MYSQL_USER=ventum
+      - MYSQL_PASSWORD
+    volumes:
+      - ./storage/mysql/data:/var/lib/mysql
+
+  redis:
+    image: redis:5-alpine
+    environment:
+      - REDIS_PASSWORD
+    command: "redis-server --requirepass ${REDIS_PASSWORD}"
+    volumes:
+      - ./storage/redis/data:/data
+
+  memcached:
+    image: memcached:1.6-alpine
+
+  certbot:
+    build: ./docker/certbot
+    volumes:
+      - ./storage/certbot/letsencrypt/conf:/etc/letsencrypt
+      - ./storage/certbot/letsencrypt/data:/var/lib/letsencrypt
+      - ./storage/nginx/webroot/:/var/www/html/
+
+volumes:
+  tmp:
