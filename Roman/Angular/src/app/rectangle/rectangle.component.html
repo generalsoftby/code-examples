@@ -1,0 +1,67 @@
+<form class="needs-validation" novalidate [formGroup]='rectangleControl'>
+  <div class="form-row">
+    <div class="col-md-12 mb-12">
+
+      <h3 class="text-center">Calculation of the area of a rectangle</h3>
+      <hr />
+
+      <div id='form-content' class="form-row">
+        <div class="col-md-6 mb-6">
+          <div class="form-row">
+            <div class="col-md-6 mb-6">
+              <label for="X1">Coordinate Х1:</label>
+              <input type="number" class="form-control" id="X1" placeholder="100" formControlName = 'X1' required>
+              <div *ngIf="rectangleControl.controls['X1'].invalid && rectangleControl.controls['X1'].errors.required" class="alert alert-danger">
+                Obligatory field.
+              </div>
+            </div>
+            <div class="col-md-6 mb-6">
+              <label for="Y1">Coordinate Y1:</label>
+              <input type="number" class="form-control" id="Y1" placeholder="100" formControlName = 'Y1' required>
+              <div *ngIf="rectangleControl.controls['Y1'].invalid && rectangleControl.controls['Y1'].errors.required" class="alert alert-danger">
+                Obligatory field.
+              </div>
+            </div>
+          </div>
+          <div class="form-row inputs-top">
+            <div class="col-md-6 mb-6">
+              <label for="X2">Coordinate Х2:</label>
+              <input type="number" class="form-control" id="X2" placeholder="100" formControlName = 'X2' required>
+              <div *ngIf="rectangleControl.controls['X2'].invalid && rectangleControl.controls['X2'].errors.required" class="alert alert-danger">
+                Obligatory field.
+              </div>
+            </div>
+            <div class="col-md-6 mb-6">
+              <label for="Y2">Coordinate Y2:</label>
+              <input type="number" class="form-control" id="Y2" placeholder="100" formControlName = 'Y2' required>
+              <div *ngIf="rectangleControl.controls['Y2'].invalid && rectangleControl.controls['Y2'].errors.required" class="alert alert-danger">
+                Obligatory field.
+              </div>
+            </div>
+        </div>
+        <button id='btn-add' class="btn btn-primary" type="submit" (click)='addRectangle()' [disabled]="rectangleControl.invalid || responseIsSuccess">
+          Add a new rectangle
+          <span *ngIf='responseIsSuccess' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
+      </div>
+  
+        <div class="col-md-6 mb-6 text-center">
+          <h4>
+            Formulas: 
+          </h4>
+          <p class="h4">
+            <code>
+              S=ab
+              <br>
+              a=x2-x1
+              <br>
+              b=y2-y1
+            </code>
+          </p>
+          <img src="../../assets/Images/rectangle.png" alt="rectangle" height="100"> 
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,33 @@
+<div *ngIf='showSpinner' class="d-flex justify-content-center align-items-center spinner">
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf='!showSpinner' class="container text-center statistic">
+  <table class="table table-striped table-bordered table-hover">
+    <caption>Statistics of added figures</caption>
+
+    <thead>
+      <tr>
+        <th scope="col">Type figures</th>
+        <th scope="col">Total area</th>
+        <th scope="col">Percent of total area</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr *ngFor="let item of statistic">
+        <td> {{ item.type }} </td>
+        <td> {{ item.area | number }}</td>
+        <td> {{ item.percent | number }}%</td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <div *ngFor='let item of statistic'>
+    <p><ngb-progressbar [type]="checkType(item.type)" [value]="item.percent" [striped]="true" [animated]="true" height="35px"><p class="text-progressbar">{{item.type}}: {{item.percent}}%</p></ngb-progressbar></p>
+  </div>
+
+</div>

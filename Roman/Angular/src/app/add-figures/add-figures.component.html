@@ -1,0 +1,37 @@
+<div class="container add-figures">
+  <div class="row">
+    <div class="col-3">
+      <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action active" id="list-circle-list" data-toggle="list" href="#list-circle" role="tab" aria-controls="circle">Circle</a>
+        <a class="list-group-item list-group-item-action" id="list-square-list" data-toggle="list" href="#list-square" role="tab" aria-controls="square">Square</a>
+        <a class="list-group-item list-group-item-action" id="list-rectangle-list" data-toggle="list" href="#list-rectangle" role="tab" aria-controls="rectangle">Rectangle</a>
+        <a class="list-group-item list-group-item-action" id="list-triangle-list" data-toggle="list" href="#list-triangle" role="tab" aria-controls="triangle">Triangle</a>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="tab-content" id="nav-tabContent">
+
+        <div class="tab-pane fade show active" id="list-circle" role="tabpanel" aria-labelledby="list-circle-list">
+          <app-circle (addFigureEvent)='reactOnAddFigureEvent($event)' [responseIsSuccess]="responseIsSuccess"></app-circle>
+        </div>
+
+        <div class="tab-pane fade" id="list-square" role="tabpanel" aria-labelledby="list-square-list">
+          <app-square (addFigureEvent)='reactOnAddFigureEvent($event)' [responseIsSuccess]="responseIsSuccess"></app-square>
+        </div>
+          
+        <div class="tab-pane fade" id="list-rectangle" role="tabpanel" aria-labelledby="list-rectangle-list">
+          <app-rectangle (addFigureEvent)='reactOnAddFigureEvent($event)' [responseIsSuccess]="responseIsSuccess"></app-rectangle>
+        </div>
+
+        <div class="tab-pane fade" id="list-triangle" role="tabpanel" aria-labelledby="list-triangle-list">
+          <app-triangle (addFigureEvent)='reactOnAddFigureEvent($event)' [responseIsSuccess]="responseIsSuccess"></app-triangle>
+        </div>
+        
+        <ngb-alert *ngIf='showAlertMessage' type='info' (close)="showAlertMessage = false" class="container alertDeleteSuccess text-center">
+          {{ alertMessage }}
+        </ngb-alert>
+      </div>
+    </div>
+  </div>
+
+</div>

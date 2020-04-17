@@ -1,0 +1,35 @@
+<form class="needs-validation" novalidate>
+  <div class="form-row">
+    <div class="col-md-12 mb-12">
+
+      <h3 class="text-center">Calculation of the area of a square</h3>
+      <hr />
+
+      <div id='form-content' class="form-row">
+        <div class="col-md-6 mb-6">
+
+          <label for="length">Side length:</label>
+          <input class='form-control' type="number" id="length" placeholder="100" required [formControl]='squareControl'>
+          
+          <div *ngIf="squareControl.invalid" class="alert alert-danger">
+            {{squareControl.errors.lengthValidator.message}}
+          </div>
+
+          <button id='btn-add' class="btn btn-primary" type="submit" (click)='addSquare()' [disabled]="squareControl.invalid || responseIsSuccess">
+            Add a new square
+            <span *ngIf='responseIsSuccess' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="col-md-6 mb-6 text-center">
+          <h4>
+            Formula: 
+            <code>S=a²</code>
+          </h4>    
+          <img src="../../assets/Images/square.jpg" alt="square" height="100"> 
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+</form>
