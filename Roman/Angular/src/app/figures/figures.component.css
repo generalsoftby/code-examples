@@ -1,0 +1,13 @@
+.spinner{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+
+.list-figures{
+  margin-top: 35px;
+}
+
+.alertDeleteSuccess{
+  margin-top: 35px;
+}
