@@ -13,7 +13,7 @@ class PublicIdGeneratorImpl implements PublicIdGenerator
     protected $model;
 
     /**
-     * Генерирует случайный ключ с проверкой уникальности
+     * Generates random unique key
      *
      * @return string
      */
@@ -31,7 +31,7 @@ class PublicIdGeneratorImpl implements PublicIdGenerator
     }
 
     /**
-     * Устанавливает модель из которой брать данные для инициализации
+     * Set model from which data will be taken
      *
      * @return void
      */
@@ -41,7 +41,7 @@ class PublicIdGeneratorImpl implements PublicIdGenerator
     }
 
     /**
-     * Генерирует ключ в зависимости от длины и алфавита
+     * Generates key with given length and alphabet
      *
      * @param $length
      * @param $alphabet
@@ -59,7 +59,7 @@ class PublicIdGeneratorImpl implements PublicIdGenerator
     }
 
     /**
-     * Проверка на уникальность ключа
+     * Unique check
      *
      * @param $unique
      * @return mixed

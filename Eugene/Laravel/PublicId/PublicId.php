@@ -11,21 +11,21 @@ use Illuminate\Support\Facades\Hash;
 trait PublicId
 {
     /**
-     * Поле в таблице
+     * Field in a table
      *
      * @var string
      */
     protected $publicId = 'public_id';
 
     /**
-     * Длина ключа
+     * Key length
      *
      * @var int
      */
     protected $publicIdLength = 9;
 
     /**
-     * Инициализация реакции приложения на событие создания
+     * Generate key on model creation
      */
     public static function bootPublicId()
     {
@@ -37,7 +37,7 @@ trait PublicId
     }
 
     /**
-     * Получение поля, которое будет хранить сгенерированный ключ
+     * Field with generated key
      *
      * @return string
      */
@@ -47,7 +47,7 @@ trait PublicId
     }
 
     /**
-     * Алфавит генерации
+     * Generation alphabet
      *
      * @return string
      */
@@ -57,7 +57,7 @@ trait PublicId
     }
 
     /**
-     * Длина ключа
+     * Key length
      *
      * @return int
      */

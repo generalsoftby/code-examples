@@ -20,7 +20,7 @@ use Laravel\Socialite\Facades\Socialite;
 class SocialiteController extends Controller
 {
     /**
-     * Массив объектов, которые вытаскивают данные из соц сетей.
+     * Objects that take data from different social networks
      *
      * @var AbstractSocialiteUser[]
      */
@@ -28,15 +28,13 @@ class SocialiteController extends Controller
 
 
     /**
-     * Объект для логики работы регистрации через соц сети
+     * Social network registration logic
      *
      * @var SocialiteManager
      */
     private $socialiteManager;
 
     /**
-     * Конструктор контроллера
-     *
      * @param $socialiteManager SocialiteManager
      */
     function __construct(SocialiteManager $socialiteManager)
@@ -62,7 +60,7 @@ class SocialiteController extends Controller
 
 
     /**
-     * Обработка регистрации/авторизации пользователя после обратного редиректа со страницы соц сети.
+     * Process after callback from social network for registration or authorization
      *
      * @param $request Request
      * @param $provider string
@@ -88,8 +86,8 @@ class SocialiteController extends Controller
 
         $token_user = $this->socialiteManager->findPersonByToken($data);
 
-        // Пользователь с таким токеном уже есть в системе
-        if ( $token_user ) {
+        // Authorization because user with given token already present in the system
+        if ($token_user) {
             if ( $token_user->status != UserStatuses::ACTIVE ) {
                 $tokenErrors = [
                     UserStatuses::BANNED => trans('registration.banned'),
@@ -107,19 +105,18 @@ class SocialiteController extends Controller
 
         $email_user = $this->socialiteManager->findPersonByEmail($data);
 
-        // Пользователь по токену не нашёлся, но пользователь с таким мылом в системе уже есть
-        if ( $email_user ) {
+        // User not found by token but user with such email present in the system
+        if ($email_user) {
             $request->session()->flash('socialite_error', trans('registration.socialite_email_exists'));
 
             return redirect(route('auth.register'));
         }
 
-
-        // Пользователь не нашёлся не нашёлся по токену и по мылу
-        // Проверка обязательных полей
+        // User not found by email or token
+        // Check required field
         $missedParams = $this->socialiteManager->checkRequiredParams($data);
 
-        // Если все обязательные поля заполнены, то создаём нового пользователя
+        // Create new user if all required fields are filled
         if (empty($missedParams)) {
             $user = $this->socialiteManager->createUser($provider, $data);
             $request->session()->flash('status', trans('registration.registered'));
@@ -127,7 +124,7 @@ class SocialiteController extends Controller
             return redirect(route('profile.index'));
         }
 
-        // Если заполнены не все обязательные поля, то необходимо эти поля узнать
+        // Ask required field from user
         $request->session()->flash('missedParams', $missedParams);
         $request->session()->flash('filledParams', $data);
         return redirect(route('auth.socialite.missed_params_form'));
@@ -135,7 +132,7 @@ class SocialiteController extends Controller
 
 
     /**
-     * Обработка ситуации, когда соц. сеть не вернула обязательные для заполнения данные.
+     * Situation when not all required fields were returned by social network
      *
      * @param $request Request
      * @return \Illuminate\Http\Response
@@ -158,7 +155,8 @@ class SocialiteController extends Controller
 
 
     /**
-     * Создание пользователя в случае отсуствия обязательных параметров
+     * Create a user from missing info registration page
+     *
      * @param $request Request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -178,7 +176,7 @@ class SocialiteController extends Controller
         $user = $this->socialiteManager->createUser($data['provider'], $data);
 
         if ($data['is_email_missed']) {
-            // Соц. сеть не отдала email. Отправляем письмо на почту для проверки
+            // Social network didn't give email. Need email confirmation.
             $user->confirmation_code = $confirmationCode = str_random(30);
             $user->save();
             event(new Registered($user));

@@ -1,0 +1,53 @@
+<form class="needs-validation" novalidate [formGroup]='triangleControl'>
+  <div class="form-row">
+    <div class="col-md-12 mb-12">
+
+      <h3 class="text-center">Calculation of the area of a triangle</h3>
+      <hr />
+
+      <div id='form-content' class="form-row">
+        <div class="col-md-6 mb-6">
+
+          <label for="a">Side length 1:</label>
+          <input type="number" class="form-control" id="a" placeholder="100" required formControlName = 'a'>
+          <div *ngIf="triangleControl.controls['a'].invalid" class="cross-validation-error-message alert alert-danger">
+            {{triangleControl.controls['a'].errors.lengthValidator.message}}
+          </div>
+
+          <label for="b">Side length 2:</label>
+          <input type="number" class="form-control" id="b" placeholder="100" required formControlName = 'b'>
+          <div *ngIf="triangleControl.controls['b'].invalid" class="cross-validation-error-message alert alert-danger">
+            {{triangleControl.controls['b'].errors.lengthValidator.message}}
+          </div>
+
+          <label for="c">Side length 3:</label>
+          <input type="number" class="form-control" id="c" placeholder="100" required formControlName = 'c'>
+          <div *ngIf="triangleControl.controls['c'].invalid" class="cross-validation-error-message alert alert-danger">
+            {{triangleControl.controls['c'].errors.lengthValidator.message}}
+          </div>  
+
+          <button id='btn-add' class="btn btn-primary" type="submit" [disabled]="triangleControl.invalid || responseIsSuccess" (click)="addTriangle()">
+            Add a figure
+            <span *ngIf='responseIsSuccess' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          </button>
+
+        </div>
+
+        <div class="col-md-6 mb-6 text-center">
+            <h4>
+              Formula:
+              <br>
+              <code>S=√(p·(p-a)·(p-b)·(p-c))</code>
+            </h4>    
+            <img src="../../assets/Images/triangle.png" alt="triangle" height="100"> 
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<ngb-alert *ngIf='triangleControl.invalid' [dismissible]="false" type='danger' class="container text-center">
+  {{triangleControl.errors.triangleValidator.message}}
+</ngb-alert>

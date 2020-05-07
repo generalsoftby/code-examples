@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 interface PublicIdGenerator
 {
     /**
-     * Генерирует случайный ключ с проверкой уникальности
+     * Generates random unique key
      *
      * @return string
      */
@@ -15,7 +15,7 @@ interface PublicIdGenerator
 
 
     /**
-     * Устанавливает модель из которой брать данные для инициализации
+     * Set model from which data will be taken
      *
      * @return void
      */
