@@ -1,0 +1,10 @@
+<h3>
+    {{ lang('calculation_variables', name) }}
+</h3>
+
+{# Shows a type of the component when the name and the type are different. #}
+{% if name != type %}
+    <div class="text-muted">
+        <small>{{ lang('calculation_variables', type) }} | Тип: {{ type }} | Имя: {{ name }}</small>
+    </div>
+{% endif %}

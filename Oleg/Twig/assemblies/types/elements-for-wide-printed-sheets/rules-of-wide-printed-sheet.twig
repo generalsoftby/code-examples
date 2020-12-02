@@ -1,0 +1,41 @@
+<div class="tab-pane mt-3 types-of-pricing-rules__printed-sheet" role="tabpanel" id="itemOfWidePrintedSheet{{ sheetWithRules.getId() }}" data-id="{{ sheetWithRules.getId() }}">
+    <h3>Ценообразование '{{ sheetWithRules.getNameOfPrintedSheet() }}':</h3>
+
+    <input type="hidden" name="pricing_rules[wide_printed_sheets][sheets][{{ sheetWithRules.getId() }}][printed_sheet_id]" value="{{ sheetWithRules.getId() }}">
+
+    <div
+        class="mb-3 types-of-pricing-rules__file-container"
+        data-action="{{ route('document_parser.parse', {'name': 'assembly__wide_printed_sheets'}) }}">
+        <label class="col-form-label">Загрузка файла с настройками</label>
+        <div>
+            <input type="file" class="btn btn-secondary types-of-pricing-rules__file">
+            <button type="button" class="btn btn-secondary ml-2 types-of-pricing-rules__load-file">
+                <span class="fa fa-file mr-1 types-of-pricing-rules__file-default"></span>
+                <span class="spinner-border spinner-border-sm mr-1 types-of-pricing-rules__file-load" hidden></span>
+                <span class="fa fa-check mr-1 types-of-pricing-rules__file-success" hidden></span>
+                <span class="fa fa-exclamation-circle mr-1 types-of-pricing-rules__file-error" hidden></span>
+                <span class="pl-2">Загрузить</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="types-of-pricing-rules">
+        {# The setting of custom edition size #}
+        {% set appropriate = sheetWithRules and sheetWithRules.getType() == 'custom_edition_size' %}
+        {% include 'calculator/assembly/types/elements-for-wide-printed-sheets/custom-edition-size' with {
+            id: sheetWithRules.getId(),
+            sheetWithRules: appropriate ? sheetWithRules : null,
+            rule: appropriate ? sheetWithRules.getPricingRule() : null,
+            algorithmWithUnit: algorithmWithUnit,
+        } only %}
+
+        {# The settings of the wholesale #}
+        {% set appropriate = sheetWithRules and sheetWithRules.getType() == 'wholesale' %}
+        {% include 'calculator/assembly/types/elements-for-wide-printed-sheets/wholesale' with {
+            id: sheetWithRules.getId(),
+            sheetWithRules: appropriate ? sheetWithRules : null,
+            rule: appropriate ? sheetWithRules.getPricingRule() : null,
+            algorithmWithUnit: algorithmWithUnit,
+        } only %}
+    </div>
+</div>

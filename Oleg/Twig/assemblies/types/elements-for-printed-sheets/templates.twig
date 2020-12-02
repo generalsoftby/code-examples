@@ -1,0 +1,55 @@
+{# The template of the list for the printed sheets #}
+<template id="templateOfListForPrintedSheets">
+    <ul class="nav nav-tabs nav-tabs--secondary list-with-printed-sheets" role="tablist">
+    </ul>
+</template>
+
+{# The template of a list item of the printed sheets #}
+<template id="templateOfListItemOfPrintedSheets">
+    {% include 'calculator/assembly/types/common/list-item-of-printed-sheet' with {
+        idPrefix: 'itemOfPrintedSheet'
+    } only %}
+</template>
+
+{# The template of the pricing rules for printed sheets #}
+<template id="templateWithPricingRulesForPrintedSheets">
+    <div
+        class="tab-pane mt-3 types-of-pricing-rules__printed-sheet"
+        role="tabpanel"
+        id="itemOfPrintedSheet${ id }"
+        data-id="${ id }">
+        <h2>Ценообразование '${ title }':</h2>
+
+        <input type="hidden" name="pricing_rules[printed_sheets][sheets][${ id }][printed_sheet_id]" value="${ id }">
+
+        <div
+            class="mb-3 types-of-pricing-rules__file-container"
+            data-action="{{ route('document_parser.parse', {'name': 'assembly__printed_sheets'}) }}">
+            <label class="col-form-label">Загрузка файла с настройками</label>
+            <div>
+                <input type="file" class="btn btn-secondary types-of-pricing-rules__file">
+                <button type="button" class="btn btn-secondary ml-2 types-of-pricing-rules__load-file">
+                    <span class="fa fa-file mr-1 types-of-pricing-rules__file-default"></span>
+                    <span class="spinner-border spinner-border-sm mr-1 types-of-pricing-rules__file-load" hidden></span>
+                    <span class="fa fa-check mr-1 types-of-pricing-rules__file-success" hidden></span>
+                    <span class="fa fa-exclamation-circle mr-1 types-of-pricing-rules__file-error" hidden></span>
+                    <span class="pl-2">Загрузить</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="types-of-pricing-rules">
+            {# The setting of custom edition size #}
+            {% include 'calculator/assembly/types/elements-for-printed-sheets/custom-edition-size' %}
+
+            {# The settings of the wholesale #}
+            {% include 'calculator/assembly/types/elements-for-printed-sheets/wholesale' %}
+        </div>
+    </div>
+</template>
+
+<template id="rowOfCustomEditionSizeForPrintedSheets">
+    {% include 'calculator/assembly/types/common/intervals/row-of-custom-edition-size' with {
+        prefixName: 'pricing_rules[printed_sheets]',
+    } only %}
+</template>

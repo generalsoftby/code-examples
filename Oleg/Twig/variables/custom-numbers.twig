@@ -1,0 +1,76 @@
+{% set prefixName = 'variables[' ~ name ~ ']' %}
+
+<div class="mt-4 custom-numbers calculator-variable--{{ name }}">
+    {% include 'calculator/items/variables/header-of-component' %}
+
+    <label class="custom-control custom-checkbox mt-2">
+        <input name="{{ prefixName }}[active]" type="checkbox" class="custom-control-input custom-numbers__active" value="1" {{ settings.isActive() ? 'checked' : '' }}>
+        <span class="custom-control-indicator custom-control-label"></span>
+        <span class="ml-2">Включено</span>
+    </label>
+
+    <div class="{{ settings.isActive() ? '' : 'd-none' }} custom-numbers__container">
+        <div class="ml-4 mt-2">
+            <h4>Произвольные количества</h4>
+            {# Export data and XLSX with example #}
+            <div
+                class="mt-3 types-of-pricing-rules__file-container"
+                data-action="{{ route('document_parser.parse', {'name': 'calculator_settings__pricing_rule'}) }}">
+                <input type="file" class="btn btn-secondary types-of-pricing-rules__file">
+                <button type="button" class="btn btn-secondary ml-2 types-of-pricing-rules__load-file">
+                    <span class="spinner-border spinner-border-sm types-of-pricing-rules__file-load" hidden></span>
+                    <span class="fa fa-check types-of-pricing-rules__file-success" hidden></span>
+                    <span class="fa fa-exclamation-circle types-of-pricing-rules__file-error" hidden></span>
+                    <span class="fa fa-file types-of-pricing-rules__file-default"></span>
+                    <span class="pl-2">Загрузить</span>
+                </button>
+                <a
+                    href="{{ route('document_parser.example', {'name': 'calculator_settings__custom_pricing_rule'}) }}"
+                    target="_blank"
+                    class="btn btn-secondary ml-2">
+                    <span class="fa fa-download"></span>
+                    <span class="pl-2">Скачать образец</span>
+                </a>
+                <button
+                    type="button"
+                    data-href="{{ route('document_parser.fill_and_get', {'name': 'calculator_settings__custom_pricing_rule'}) }}"
+                    data-type="custom"
+                    class="btn btn-secondary ml-2 types-of-pricing-rules__export-file">
+                    <span class="fa fa-upload"></span>
+                    <span class="pl-2">Выгрузить данные</span>
+                </button>
+            </div>
+
+            {% include "calculator/items/variables/intervals/table-with-intervals" with {
+                prefixName: prefixName,
+                classNameOfTBody: 'custom-numbers__intervals',
+                intervals: settings.getIntervals(),
+            } only %}
+
+            <div class="mt-3">
+                <button type="button" class="btn btn-primary custom-numbers__add-interval">
+                    <span class="fa fa-plus"></span>
+                    <span class="pl-2">Добавить интервал</span>
+                </button>
+                <template class="custom-numbers__row-template">
+                    {% include 'calculator/items/variables/intervals/row' with {
+                        prefixName: prefixName,
+                    } only %}
+                </template>
+            </div>
+
+            <div class="mt-3">
+                {# Additional settings #}
+                {% include 'calculator/items/variables/stitching-way/additional-settings' with {
+                    prefix_name: prefixName,
+                    extraCharge: settings.getExtraCharge(),
+                    minPrice: settings.getMinPrice(),
+                } only %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+    {{ includeScriptOnce('build/calculator_items_variables__custom_numbers.js') }}
+{% endblock %}

@@ -1,0 +1,18 @@
+{# Sets RUB or the given currency #}
+{% set currency = currency ?? 'RUB' %}
+
+<label class="custom-control custom-radio mb-0 mt-2 mr-3">
+    <input name="{{ name }}" type="radio" class="custom-control-input {{ className }}" value="RUB" {{ currency == 'RUB' ? 'checked' : '' }}>
+    <span class="custom-control-indicator custom-control-label"></span>
+    <span class="custom-control-description">RUB</span>
+</label>
+<label class="custom-control custom-radio mb-0 mt-2 mr-3">
+    <input name="{{ name }}" type="radio" class="custom-control-input {{ className }}" value="USD" {{ currency == 'USD' ? 'checked' : '' }}>
+    <span class="custom-control-indicator custom-control-label"></span>
+    <span class="custom-control-description">USD</span>
+</label>
+<label class="custom-control custom-radio mb-0 mt-2">
+    <input name="{{ name }}" type="radio" class="custom-control-input {{ className }}" value="EUR" {{ currency == 'EUR' ? 'checked' : '' }}>
+    <span class="custom-control-indicator custom-control-label"></span>
+    <span class="custom-control-description">EUR</span>
+</label>

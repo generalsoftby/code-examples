@@ -1,0 +1,13 @@
+{# Sets 'one_unit' or the given value #}
+{% set value = value ?? 'one_unit' %}
+
+<label class="custom-control custom-radio mb-0">
+    <input name="{{ name }}" type="radio" class="custom-control-input {{ className }}" value="one_unit" {{ value == 'one_unit' ? 'checked' : '' }}>
+    <span class="custom-control-indicator custom-control-label"></span>
+    <span class="custom-control-description ml-1">единицу</span>
+</label>
+<label class="custom-control custom-radio mb-0 ml-3">
+    <input name="{{ name }}" type="radio" class="custom-control-input {{ className }}" value="all_products" {{ value == 'all_products' ? 'checked' : '' }}>
+    <span class="custom-control-indicator custom-control-label"></span>
+    <span class="custom-control-description ml-1">тираж</span>
+</label>

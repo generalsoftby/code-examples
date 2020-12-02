@@ -1,0 +1,57 @@
+<div class="stitching-way__pricing-rule" data-type="custom">
+    <label class="custom-control custom-radio mb-0 mt-2 mr-3">
+        <input
+            name="variables[stitching_type][{{ index }}][price][type]"
+            type="radio"
+            class="custom-control-input types-of-pricing-rules__type"
+            {{ way.getTypeOfPricingRule() == 'custom' ? 'checked' : '' }}
+            value="custom">
+        <span class="custom-control-indicator custom-control-label"></span>
+        <span class="custom-control-description">Произвольное количество</span>
+    </label>
+
+    {# @var rule \App\Model\Calculator\CalculationVariables\PricingRules\Custom|null #}
+    {% set rule = way.getTypeOfPricingRule() == 'custom' ?  way.getPricingRule() : null %}
+
+    <div class="stitching-way__content mt-3 mb-3 pl-4">
+        {# Export data and XLSX with example #}
+        <div class="mt-3">
+            <a
+                href="{{ route('document_parser.example', {'name': 'calculator_settings__custom_pricing_rule'}) }}"
+                target="_blank"
+                class="btn btn-secondary">
+                <span class="fa fa-download"></span>
+                <span class="pl-2">Скачать образец</span>
+            </a>
+            <button
+                type="button"
+                data-href="{{ route('document_parser.fill_and_get', {'name': 'calculator_settings__custom_pricing_rule'}) }}"
+                data-type="custom"
+                class="btn btn-secondary ml-2 types-of-pricing-rules__export-file">
+                <span class="fa fa-upload"></span>
+                <span class="pl-2">Выгрузить данные</span>
+            </button>
+        </div>
+
+        {% include "calculator/items/variables/intervals/table-with-intervals" with {
+            prefixName: 'variables[stitching_type][' ~ index ~ '][price][pricing_rule][custom]',
+            intervals: rule.getIntervals(),
+        } only %}
+
+        <div class="mt-3">
+            <button type="button" class="btn btn-primary custom__add-interval">
+                <span class="fa fa-plus"></span>
+                <span class="pl-2">Добавить интервал</span>
+            </button>
+        </div>
+
+        <div class="mt-3">
+            {# Additional settings #}
+            {% include 'calculator/items/variables/stitching-way/additional-settings' with {
+                prefix_name: 'variables[stitching_type][' ~ index ~ '][price][pricing_rule][custom]',
+                extraCharge: rule.getExtraCharge(),
+                minPrice: rule.getMinPrice(),
+            } only %}
+        </div>
+    </div>
+</div>

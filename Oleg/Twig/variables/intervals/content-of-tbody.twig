@@ -1,0 +1,12 @@
+{% for interval in intervals %}
+    {% include 'calculator/items/variables/intervals/row' with {
+        intervalIndex: loop.index0,
+        interval: interval,
+        prefixName: prefixName,
+    } only %}
+{% else %}
+    {% include 'calculator/items/variables/intervals/row' with {
+        intervalIndex: 0,
+        prefixName: prefixName,
+    } only %}
+{% endfor %}

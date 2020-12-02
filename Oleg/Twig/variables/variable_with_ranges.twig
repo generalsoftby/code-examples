@@ -1,0 +1,93 @@
+<div {% if id %}id="{{ id }}"{% endif %} class="mt-4 mb-4 js--toggleBlockWrapper {{ class ?: '' }}">
+    <label class="custom-control custom-checkbox mt-2 mr-3">
+        <input name="{{ prefix_name }}[active]" type="checkbox" class="custom-control-input js--toggleBlock" value="1" {{ settings.isActive() ? 'checked' : '' }}>
+        <span class="custom-control-indicator custom-control-label"></span>
+        <h3 class="custom-control-description">{{ lang('calculation_variables', name) }}</h3>
+    </label>
+
+    <div class="{{ settings.isActive() ? '' : 'd-none' }} js--toggleBlockBlock">
+        {# <div class="mb-2"><button type="button" class="btn btn-success"><span>Загрузить файл с ценами</span></button></div> #}
+
+        <div class="ml-4">
+            <div class="mt-4 mb-2">Произвольные количества</div>
+            {# <div class="mb-2"><button type="button" class="btn btn-success"><span>Выгрузить шаблон</span></button></div> #}
+
+            <div class="table-responsive js--autoRowBlock">
+                <table class="table table-striped mt-3 sort-table">
+                    <thead>
+                        <tr>
+                            <th>Мин. кол-во</th>
+                            <th>Макс. кол-во</th>
+                            <th>Цена</th>
+                            <th width="52px"><!-- Кнопка "Удалить" --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set index = 0 %}
+                        {% for interval in settings.getIntervals() %}
+                            {%
+                                include 'calculator/items/variables/interval-row' with {
+                                    'id': loop.index0,
+                                    'start': interval.getStart(),
+                                    'end': interval.getEnd(),
+                                    'price': interval.getCost(),
+                                    'prefix_name': prefix_name ~ '[intervals][' ~ loop.index0 ~ ']',
+                                }
+                             %}
+
+                            {% set index = loop.index %}
+                        {% endfor %}
+
+                        {%
+                            include 'calculator/items/variables/interval-row' with {
+                                'id': index,
+                                'prefix_name': prefix_name ~ '[intervals][' ~ index ~ ']',
+                            }
+                        %}
+                    </tbody>
+                </table>
+
+                <template class="js--autoRowTemplate">
+                    {% include 'calculator/items/variables/interval-row' with {'prefix_name': prefix_name ~ '[intervals][${i}]'} %}
+                </template>
+            </div>
+
+            <div class="mt-3">
+                <h3>Дополнительные настройки:</h3>
+                <div class="row form-group">
+                    <div class="col-12">
+                        <label class="col-form-label">Дополнительная стоимость:</label>
+                    </div>
+                    <div class="col-1">
+                        <input type="number" name="{{ prefix_name }}[extra_price][value]" value="{{ settings.getExtraPrice().getValue() }}" class="form-control form-control-sm js--inputRequired" data-format="natural|null" min="0">
+                    </div>
+                    <div class="col-4 input-group">
+                        {%
+                            include 'calculator/assembly/pricing-of-printed-sheets/currencies' with {
+                                name: prefix_name ~ '[extra_price][currency]',
+                                value: settings.getExtraPrice().getCurrency()
+                            } only
+                        %}
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-12">
+                        <label class="col-form-label">Минимальная стоимость тиража:</label>
+                    </div>
+                    <div class="col-1">
+                        <input type="number" name="{{ prefix_name }}[min_price][value]" value="{{ settings.getMinPrice().getValue() }}" class="form-control form-control-sm js--inputRequired" data-format="natural|null" min="0">
+                    </div>
+                    <div class="col-4 input-group">
+                        {%
+                            include 'calculator/assembly/pricing-of-printed-sheets/currencies' with {
+                                name: prefix_name ~ '[min_price][currency]',
+                                value: settings.getMinPrice().getCurrency()
+                            } only
+                        %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
