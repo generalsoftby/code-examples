@@ -1,0 +1,19 @@
+{# It uses the 'template' function of Lodash: ${ id } #}
+{# @see /public/frontend/js/calculators/items/variables/print-formats.js #}
+<tr data-id="{{ id ?? '${ id }' }}">
+    <td>
+        <span class='selector fa fa-arrows pointer'></span>
+    </td>
+    <td>
+        <input type="text" name="{{ id ? 'variables[' ~ name ~ '][formats][' ~ id ~ '][name]' : 'variables[' ~ name ~ '][formats][${ id }][name]' }}" value="{{ formatName ?? '' }}" class="form-control form-control-sm" placeholder="Название формата">
+    </td>
+    <td>
+        <input type="text" name="{{ id ? 'variables[' ~ name ~ '][formats][' ~ id ~ '][width]' : 'variables[' ~ name ~ '][formats][${ id }][width]' }}" value="{{ width ?? '' }}" class="form-control form-control-sm" placeholder="Ширина">
+    </td>
+    <td>
+        <input type="text" name="{{ id ? 'variables[' ~ name ~ '][formats][' ~ id ~ '][height]' : 'variables[' ~ name ~ '][formats][${ id }][height]' }}" value="{{ height ?? '' }}" class="form-control form-control-sm" placeholder="Длина">
+    </td>
+    <td>
+        <span class='remove fa fa-times pointer pointer_hover-color_warning'></span>
+    </td>
+</tr>

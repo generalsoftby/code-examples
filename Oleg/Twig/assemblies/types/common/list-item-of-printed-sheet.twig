@@ -1,0 +1,10 @@
+{# The item for the list of printed sheets #}
+<li class="nav-item mr-2" data-id="{{ id ?? '${ id }' }}">
+    <a
+        href="{{ id ? '#' ~ idPrefix ~ id : '#' ~ idPrefix ~ '${ id }' }}"
+        data-toggle="tab"
+        role="tab">
+        {{ title ?? '${ title }' }}
+    </a>
+    <span class="red-close-btn ml-1 removeTab" style="border: none; vertical-align: -2px;"></span>
+</li>

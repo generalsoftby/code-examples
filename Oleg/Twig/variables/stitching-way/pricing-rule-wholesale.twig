@@ -1,0 +1,137 @@
+<div class="stitching-way__pricing-rule" data-type="wholesale">
+    <label class="custom-control custom-radio mb-0 mt-2 mr-3">
+        <input
+            name="variables[stitching_type][{{ index }}][price][type]"
+            type="radio"
+            class="custom-control-input types-of-pricing-rules__type"
+            {{ way.getTypeOfPricingRule() == 'wholesale' ? 'checked' : '' }}
+            value="wholesale">
+        <span class="custom-control-indicator custom-control-label"></span>
+        <span class="custom-control-description">Формула с понижающим коэффициентом</span>
+    </label>
+
+    {# @var rule \App\Model\Calculator\CalculationVariables\PricingRules\Wholesale|null #}
+    {% set rule = way.getTypeOfPricingRule() == 'wholesale' ?  way.getPricingRule() : null %}
+
+    <div class="stitching-way__content mt-3 mb-3 pl-4">
+        {# Export data and XLSX with example #}
+        <div class="mt-3">
+            <a
+                href="{{ route('document_parser.example', {'name': 'calculator_settings__wholesale_pricing_rule'}) }}"
+                target="_blank"
+                class="btn btn-secondary">
+                <span class="fa fa-download"></span>
+                <span class="pl-2">Скачать образец</span>
+            </a>
+            <button
+                type="button"
+                data-href="{{ route('document_parser.fill_and_get', {'name': 'calculator_settings__wholesale_pricing_rule'}) }}"
+                data-type="wholesale"
+                class="btn btn-secondary ml-2 types-of-pricing-rules__export-file">
+                <span class="fa fa-upload"></span>
+                <span class="pl-2">Выгрузить данные</span>
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="table-responsive col-12 mt-3">
+                <h3>K * S<sup>2</sup> + С<sub>start</sub> * S + A</h3>
+                <p></p>
+                <ul>
+                    <li><i>S</i> - количество продукции (тираж),</li>
+                    <li><i>A</i> - дополнительная стоимость.</li>
+                </ul>
+                <table class="table table-striped table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Переменная</th>
+                            <th>Значение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span>K (коэффициент изменения стоимости)</span>
+                            </td>
+                            <td>
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <input
+                                            type="text"
+                                            name="variables[stitching_type][{{ index }}][price][pricing_rule][wholesale][coefficient]"
+                                            value="{{ rule.getCoefficient() }}"
+                                            class="form-control form-control-sm types-of-pricing-rules__coefficient">
+                                    </div>
+                                    <div class="col-6">
+                                        Отрицательное число, например, -0,0015
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            {# @var startCost \App\Model\Calculator\PricingRulesOfAssemblies\Cost #}
+                            {% set startCost = rule.getStartCostPerProduct() %}
+                            <td>
+                                С<sub>start</sub> (начальная стоимость за продукцию)
+                            </td>
+                            <td>
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <input
+                                            type="text"
+                                            name="variables[stitching_type][{{ index }}][price][pricing_rule][wholesale][start_cost_per_product][value]"
+                                            value="{{ startCost.getValue() }}"
+                                            class="form-control form-control-sm types-of-pricing-rules__value-of-start-cost">
+                                    </div>
+                                    <div class="col-6">
+                                        {%
+                                            include 'calculator/assembly/types/common/currencies' with {
+                                                name: 'variables[stitching_type][' ~ index ~ '][price][pricing_rule][wholesale][start_cost_per_product][currency]',
+                                                className: 'types-of-pricing-rules__currency-of-start-cost',
+                                                currency:  startCost.getCurrency()
+                                            } only
+                                        %}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            {# @var startCost \App\Model\Calculator\PricingRulesOfAssemblies\Cost #}
+                            {% set minimalCost = rule.getMinCostPerProduct() %}
+                            <td>
+                                C<sub>min</sub> (минимальная стоимость за продукцию)
+                            </td>
+                            <td>
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <input
+                                            type="text"
+                                            name="variables[stitching_type][{{ index }}][price][pricing_rule][wholesale][min_cost_per_product][value]"
+                                            value="{{ minimalCost.getValue() }}"
+                                            class="form-control form-control-sm types-of-pricing-rules__value-of-min-cost">
+                                    </div>
+                                    <div class="col-6">
+                                        {% include 'calculator/assembly/types/common/currencies' with {
+                                            name: 'variables[stitching_type][' ~ index ~ '][price][pricing_rule][wholesale][min_cost_per_product][currency]',
+                                            className: 'types-of-pricing-rules__currency-of-min-cost',
+                                            currency:  minimalCost.getCurrency()
+                                        } only %}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            {# Additional settings #}
+            {% include 'calculator/items/variables/stitching-way/additional-settings' with {
+                prefix_name: 'variables[stitching_type][' ~ index ~ '][price][pricing_rule][wholesale]',
+                extraCharge: rule.getExtraCharge(),
+                minPrice: rule.getMinPrice()
+            } only %}
+        </div>
+    </div>
+</div>

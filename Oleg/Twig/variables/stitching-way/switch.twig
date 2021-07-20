@@ -1,0 +1,16 @@
+{% set index = index ?? '${ index }' %}
+
+<div class="btn-group" role="group">
+    <button
+        type="button"
+        class="btn btn-secondary stitching-type__switch-button"
+        data-target="#stitchingWay{{ index }}"
+        data-index="{{ index }}"
+        data-toggle="tab"
+        title="Показать">
+        <span class="stitching-type__switch-name">{{ name ?? '${ name }' }}</span>
+    </button>
+    <button type="button" class="btn btn-secondary stitching-type__delete-way" data-index="{{ index }}" title="Удалить">
+        <span class="fa fa-trash"></span>
+    </button>
+</div>

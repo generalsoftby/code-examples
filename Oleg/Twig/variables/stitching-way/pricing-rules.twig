@@ -1,0 +1,10 @@
+<div class="stitching-way__pricing-rules mb-3">
+    <label>Тип ценообразования:</label>
+
+    {% include "calculator/items/variables/stitching-way/pricing-rule-custom" %}
+    {% include "calculator/items/variables/stitching-way/pricing-rule-wholesale" %}
+</div>
+
+{% block scripts %}
+    <script src="{{ asset_spc('build/calculator_items_variables__stitching_type_pricing_rules.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,47 @@
+<div class="mt-3">
+    <h3>Способы брошюровки</h3>
+
+    <ul class="nav nav-tabs nav-tabs--secondary list-with-stitching-ways" id="listOfSwitchesWithStitchingWays" role="tablist">
+        {# @var way \App\Model\Calculator\CalculationVariables\StitchingWay #}
+        {% for way in settings %}
+            {% include "calculator/items/variables/stitching-way/switch-item" with {
+                index: loop.index,
+                name: way.getName(),
+            } only %}
+        {% endfor %}
+    </ul>
+
+    <div class="mt-3">
+        <button type="button" class="btn btn-primary" id="addStitchingWay">
+            <span class="fa fa-plus"></span><span class="pl-2">Добавить способ</span>
+        </button>
+
+        <template id="stitchingWayTemplate">
+            {% include "calculator/items/variables/stitching-way" %}
+        </template>
+        <template id="stitchingWaySwitchItem">
+            {% include "calculator/items/variables/stitching-way/switch-item" %}
+        </template>
+        <template id="stitchingWayCustomRow">
+            {% include "calculator/items/variables/intervals/row" with {
+                template: true,
+                prefixName: 'variables[stitching_type][${ index }][price][pricing_rule][custom]',
+            } %}
+        </template>
+    </div>
+
+    <hr>
+    <div class="mt-3 tab-content" id="listWithStitchingWays">
+        {% for way in settings %}
+            {% include "calculator/items/variables/stitching-way" with {
+                index: loop.index,
+                way: way
+            } only %}
+        {% endfor %}
+    </div>
+    <hr>
+</div>
+
+{% block scripts %}
+    {{ includeScriptOnce('build/calculator_items_variables__stitching_type.js') }}
+{% endblock %}

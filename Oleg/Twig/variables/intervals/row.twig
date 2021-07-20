@@ -1,0 +1,48 @@
+{% set intervalIndex = intervalIndex ?? '${ intervalIndex }' %}
+{% set template = template is null ? intervalIndex == '${ intervalIndex }' : template %}
+{% set start = template ? '${ start }' : interval.getStart() %}
+{% set end = template ? '${ end }' : interval.getEnd() %}
+{% set valueOfCost = template ? '${ value_of_cost }' : interval.getValueOfCost() %}
+
+<tr data-index="{{ intervalIndex }}">
+    <td>
+        <input
+            type="number"
+            class="form-control types-of-pricing-rules__start"
+            name="{{ prefixName }}[intervals][{{ intervalIndex }}][start]"
+            placeholder="Начало интервала"
+            value="{{ start }}"
+            min="0">
+    </td>
+    <td>
+        <input
+            type="number"
+            class="form-control types-of-pricing-rules__end"
+            name="{{ prefixName }}[intervals][{{ intervalIndex }}][end]"
+            placeholder="Конец интервала"
+            value="{{ end }}"
+            min="0">
+    </td>
+    <td>
+        <div class="form-row align-items-center">
+            <div class="col-6">
+                <input
+                    type="text"
+                    class="form-control types-of-pricing-rules__value"
+                    name="{{ prefixName }}[intervals][{{ intervalIndex }}][price][value]"
+                    placeholder="Цена"
+                    value="{{ valueOfCost }}">
+            </div>
+            <div class="col-6">
+                {% include 'calculator/assembly/types/common/currencies' with {
+                    name: prefixName ~ '[intervals][' ~ intervalIndex ~ '][price][currency]',
+                    className: 'types-of-pricing-rules__custom-currency',
+                    currency: interval.getCurrencyOfCost(),
+                } only %}
+            </div>
+        </div>
+    </td>
+    <td>
+        <span class="fa fa-times pointer pointer_hover-color_warning custom__remove-interval"></span>
+    </td>
+</tr>

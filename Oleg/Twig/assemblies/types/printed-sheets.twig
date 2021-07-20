@@ -1,0 +1,121 @@
+<div class="types-of-pricing-rules__printed-sheets">
+    <label class="custom-control custom-radio">
+        <input
+            name="pricing_type"
+            type="radio"
+            class="custom-control-input types-of-pricing-rules__type"
+            value="printed_sheets"
+            {{ type == 'printed_sheets' ? 'checked' : '' }}>
+        <span class="custom-control-indicator custom-control-label"></span>
+        <span class="custom-control-description pl-1">
+            Собственные правила ценообразования для широкоформатных печатных листов.
+        </span>
+    </label>
+
+    <div class="types-of-pricing-rules__content mt-2 ml-4" {{ type != 'printed_sheets' ? 'hidden' : '' }}>
+        <h3>Печатные листы</h3>
+
+        {# Each added printed sheet has pricing rules #}
+        <span class="container-with-list-of-printed-sheets">
+            {% if pricingRule is null or pricingRule.count() == 0 %}
+                <div class="empty-list-with-printed-sheets mb-2">
+                    Печатные листы не добавлены. Добавьте печатные листы.
+                </div>
+            {% else %}
+                <ul class="nav nav-tabs nav-tabs--secondary mt-2 list-with-printed-sheets" role="tablist">
+                    {% for sheetWithRules in pricingRule %}
+                        {% include 'calculator/assembly/types/common/list-item-of-printed-sheet' with {
+                            idPrefix: 'itemOfPrintedSheet',
+                            title: sheetWithRules.getNameOfPrintedSheet(),
+                            id: sheetWithRules.getId(),
+                        } %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </span>
+
+        {# NOTE See JS templates './elements-for-printed-sheets/templates.twig' #}
+
+        <button
+            type="button"
+            class="btn btn-primary"
+            title="Добавить печатный лист"
+            data-title="Печатные листы"
+            data-container-name="#tableWithPrintedSheets"
+            {# Sets a type of printed sheets #}
+            data-type={{ bookKeeper.getTypesOfPrintedSheets()[0] }}
+            data-container-with-rules=".container-with-rules-of-printed-sheets"
+            data-template-of-list="#templateOfListForPrintedSheets"
+            data-template-with-list-item="#templateOfListItemOfPrintedSheets"
+            data-template-with-rules="#templateWithPricingRulesForPrintedSheets"
+            data-toggle="modal"
+            data-target=".modal-with-printed-sheets">
+            <span class="fa fa-plus"></span>
+            <span class="pl-2">Добавить лист</span>
+        </button>
+
+        {# Will contain a table with printed sheets #}
+        <div hidden>
+            <div id="tableWithPrintedSheets"></div>
+        </div>
+
+        <div class="tab-content container-with-rules-of-printed-sheets">
+            {% for sheetWithRules in pricingRule %}
+                {% include 'calculator/assembly/types/elements-for-printed-sheets/rules-of-printed-sheet' with {
+                    sheetWithRules: sheetWithRules,
+                } only %}
+            {% endfor %}
+        </div>
+
+        <div class="form-row mt-3">
+            <div class="col-2">
+              <label>Количество листов на приладку:</label>
+              <input
+                type="number"
+                class="form-control form-control-sm"
+                name="pricing_rules[printed_sheets][number_of_sheets_for_fitting]"
+                value="{{ pricingRule.getNumberOfSheetsForFitting() ?? 0 }}"
+                min="0">
+            </div>
+        </div>
+
+        {# Export and import data #}
+        <div
+            class="mt-3 mb-3 types-of-pricing-rules__file-container"
+            data-action="{{ route('document_parser.parse', {'name': 'assembly__printed_sheets'}) }}">
+            <label class="col-form-label">Загрузка и выгрузка файла с настройками печатных листов</label>
+            <div>
+                <input type="file" class="btn btn-secondary types-of-pricing-rules__file">
+                <button type="button" class="btn btn-secondary ml-2 types-of-pricing-rules__load-file">
+                    <span class="fa fa-file mr-1 types-of-pricing-rules__file-default"></span>
+                    <span class="spinner-border spinner-border-sm mr-1 types-of-pricing-rules__file-load" hidden></span>
+                    <span class="fa fa-check mr-1 types-of-pricing-rules__file-success" hidden></span>
+                    <span class="fa fa-exclamation-circle mr-1 types-of-pricing-rules__file-error" hidden></span>
+                    <span class="pl-2">Загрузить</span>
+                </button>
+                <a
+                    href="{{ route('document_parser.example', {'name': 'assembly__printed_sheets'}) }}"
+                    target="_blank"
+                    class="btn btn-secondary ml-2">
+                    <span class="fa fa-download"></span>
+                    <span class="pl-2">Скачать образец</span>
+                </a>
+                <button
+                    type="button"
+                    data-href="{{ route('document_parser.fill_and_get', {'name': 'assembly__printed_sheets'}) }}"
+                    data-type="printed_sheets"
+                    class="btn btn-secondary ml-2 types-of-pricing-rules__export-file">
+                    <span class="fa fa-upload"></span>
+                    <span class="pl-2">Выгрузить данные</span>
+                </button>
+            </div>
+            <div class="text-muted mt-3">Печатные листы без указанного типа ценообразования будут проигнорированы.</div>
+        </div>
+    </div>
+
+    {% include 'calculator/assembly/types/elements-for-printed-sheets/templates' %}
+</div>
+
+{% block scripts %}
+	<script src="{{ asset_spc('build/assembly__types__printed_sheets.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,17 @@
+<div class="mt-3">
+    <h3>Дополнительные настройки:</h3>
+
+    {# Shows an extra charge #}
+    {% include 'calculator/items/variables/stitching-way/extra-charge' with {
+        prefix_name: prefix_name,
+        value: extraCharge.getValue(),
+        currency: extraCharge.getCurrency(),
+    } only %}
+
+    {# Shows a minimal price #}
+    {% include 'calculator/items/variables/stitching-way/min-price' with {
+        prefix_name: prefix_name,
+        value: minPrice.getValue(),
+        currency: minPrice.getCurrency(),
+    } only %}
+</div>

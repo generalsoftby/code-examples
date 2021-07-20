@@ -1,0 +1,265 @@
+{% set index = index ?? '${ index }' %}
+{# @var way \App\Model\Calculator\CalculationVariables\StitchingWay #}
+{% set name = way.getName() ?? ('Способ брошюровки ' ~ index) %}
+
+<div class="tab-pane stitching-way" id="stitchingWay{{ index }}" data-index="{{ index }}" role="tabpanel">
+    <h4>Способ брошюровки: <span class="stitching-way__label">{{ name }}</span></h4>
+
+    <div class="form-row mt-3">
+        <div class="form-group col-5">
+            <label for="stitchingTypeName{{ index }}">
+                Название способа:
+            </label>
+            <input
+                type="text"
+                class="form-control stitching-way__name"
+                name="variables[stitching_type][{{ index }}][name]"
+                id="stitchingTypeName{{ index }}"
+                placeholder="Название способа"
+                value="{{ name }}"
+                maxlength="50"
+                required>
+        </div>
+    </div>
+
+    <div class="mt-3 stitching-way__price">
+        <h4>Цена</h4>
+
+        <div
+            class="pl-4 types-of-pricing-rules__file-container"
+            data-action="{{ route('document_parser.parse', {'name': 'calculator_settings__pricing_rule'}) }}">
+            <label class="col-form-label">Загрузка файла с настройками</label>
+            <div>
+                <input type="file" class="btn btn-secondary types-of-pricing-rules__file">
+                <button type="button" class="btn btn-secondary ml-2 types-of-pricing-rules__load-file">
+                    <span class="spinner-border spinner-border-sm types-of-pricing-rules__file-load" hidden></span>
+                    <span class="fa fa-check types-of-pricing-rules__file-success" hidden></span>
+                    <span class="fa fa-exclamation-circle types-of-pricing-rules__file-error" hidden></span>
+                    <span class="fa fa-file types-of-pricing-rules__file-default"></span>
+                    <span class="pl-2">Загрузить</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="pl-4 mt-3">
+            {% include "calculator/items/variables/stitching-way/pricing-rules" with {
+                index: index,
+                way: way,
+            } only %}
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="stitchingTypeProductsForFitting{{ index }}">
+                        Количество изделий на приладку:
+                    </label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="variables[stitching_type][{{ index }}][price][products_for_fitting]"
+                        id="stitchingTypeProductsForFitting{{ index }}"
+                        placeholder="Количество листов на приладку"
+                        value="{{ way.getNumberOfProductsForFitting() ?? 0 }}"
+                        min="0">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <h4>Обложка</h4>
+
+        <div class="pl-4">
+            <div class="form-row mt-3">
+                <div class="col-3">
+                    <label class="custom-control custom-checkbox mt-2">
+                        <input
+                            type="checkbox"
+                            name="variables[stitching_type][{{ index }}][cover][active]"
+                            class="custom-control-input"
+                            {{ way.isCoverUsed() ? 'checked' : '' }}
+                            value="1">
+                        <span class="custom-control-indicator custom-control-label"></span>
+                        <span class="custom-control-description pl-1">Доступность при расчете</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-row mt-3">
+                <div class="form-group col-3 pr-3">
+                    <label for="stitchingTypeFormulaOfCoverWidth{{ index }}">
+                        Ширина обложки:
+                    </label>
+                    <input
+                        class="form-control"
+                        name="variables[stitching_type][{{ index }}][cover][formula_of_width]"
+                        id="stitchingTypeFormulaOfCoverWidth{{ index }}"
+                        placeholder="Формула ширины или число"
+                        value="{{ way.getFormulaOfCoverWidth() }}">
+                </div>
+                <div class="form-group col-3">
+                    <label for="stitchingTypeFormulaOfCoverHeight{{ index }}">
+                        Высота обложки:
+                    </label>
+                    <input
+                        class="form-control"
+                        name="variables[stitching_type][{{ index }}][cover][formula_of_height]"
+                        id="stitchingTypeFormulaOfCoverHeight{{ index }}"
+                        placeholder="Формула высоты или число"
+                        value="{{ way.getFormulaOfCoverHeight() }}">
+                </div>
+            </div>
+            <p class="text-muted">Доступные переменные: {Ширина обложки}, {Высота обложки}, {Кол-во страниц в блоке}.</p>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <h4>Подложка</h4>
+
+        <div class="pl-4">
+            <div class="form-row mt-3">
+                <div class="col-3">
+                    <label class="custom-control custom-checkbox mt-2">
+                        <input
+                            type="checkbox"
+                            name="variables[stitching_type][{{ index }}][substrate][active]"
+                            class="custom-control-input"
+                            {{ way.isSubstrateUsed() ? 'checked' : '' }}
+                            value="1">
+                        <span class="custom-control-indicator custom-control-label"></span>
+                        <span class="custom-control-description pl-1">Доступность при расчете</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-row mt-3">
+                <div class="form-group col-3 pr-3">
+                    <label for="stitchingTypeFormulaOfSubstrateWidth{{ index }}">
+                        Ширина подложки:
+                    </label>
+                    <input
+                        class="form-control"
+                        name="variables[stitching_type][{{ index }}][substrate][formula_of_width]"
+                        id="stitchingTypeFormulaOfSubstrateWidth{{ index }}"
+                        placeholder="Формула ширины или число"
+                        value="{{ way.getFormulaOfSubstrateWidth() }}">
+                </div>
+                <div class="form-group col-3">
+                    <label for="stitchingTypeFormulaOfSubstrateHeight{{ index }}">
+                        Высота подложки:
+                    </label>
+                    <input
+                        class="form-control"
+                        name="variables[stitching_type][{{ index }}][substrate][formula_of_height]"
+                        id="stitchingTypeFormulaOfSubstrateHeight{{ index }}"
+                        placeholder="Формула высоты или число"
+                        value="{{ way.getFormulaOfSubstrateHeight() }}">
+                </div>
+            </div>
+            <p class="text-muted">Доступные переменные: {Ширина подложки}, {Высота подложки}.</p>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <h4>Блок</h4>
+
+        <div class="pl-4">
+            <div class="form-row mt-3">
+                <div class="col-3">
+                    <label class="custom-control custom-checkbox mt-2">
+                        <input
+                            type="checkbox"
+                            name="variables[stitching_type][{{ index }}][block][active]"
+                            class="custom-control-input"
+                            {{ way.isBlockUsed() ? 'checked' : '' }}
+                            value="1">
+                        <span class="custom-control-indicator custom-control-label"></span>
+                        <span class="custom-control-description pl-1">Доступность при расчете</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-row mt-3">
+                <div class="form-group col-3 pr-3">
+                    <label for="stitchingTypeFormulaOfBlockWidth{{ index }}">
+                        Ширина тетради:
+                    </label>
+                    <input
+                        class="form-control"
+                        name="variables[stitching_type][{{ index }}][block][formula_of_width]"
+                        id="stitchingTypeFormulaOfBlockWidth{{ index }}"
+                        placeholder="Формула ширины или число"
+                        value="{{ way.getFormulaOfBlockWidth() }}">
+                </div>
+                <div class="form-group col-3">
+                    <label for="stitchingTypeFormulaOfBlockHeight{{ index }}">
+                        Высота тетради:
+                    </label>
+                    <input
+                        class="form-control"
+                        name="variables[stitching_type][{{ index }}][block][formula_of_height]"
+                        id="stitchingTypeFormulaOfBlockHeight{{ index }}"
+                        placeholder="Формула высоты или число"
+                        value="{{ way.getFormulaOfBlockHeight() }}">
+                </div>
+            </div>
+            <p class="text-muted">Доступные переменные: {Ширина блока}, {Высота блока}.</p>
+
+            <div class="form-row mt-3">
+                <div class="form-group col-3 pr-3">
+                    <label for="stitchingTypeMinNumberOfPages{{ index }}">
+                        Мин. кол-во страниц:
+                    </label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="variables[stitching_type][{{ index }}][block][min_number_of_pages]"
+                        id="stitchingTypeMinNumberOfPages{{ index }}"
+                        placeholder="Мин. кол-во страниц"
+                        value="{{ way.getMinNumberOfPages() }}"
+                        min="0">
+                </div>
+                <div class="form-group col-3">
+                    <label for="stitchingTypeMaxNumberOfPages{{ index }}">
+                        Макс. кол-во страниц:
+                    </label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="variables[stitching_type][{{ index }}][block][max_number_of_pages]"
+                        id="stitchingTypeMaxNumberOfPages{{ index }}"
+                        placeholder="Макс. кол-во страниц"
+                        value="{{ way.getMaxNumberOfPages() }}"
+                        min="0">
+                </div>
+                <div class="form-group col-3">
+                    <label for="stitchingTypeFrequencyOfPages{{ index }}">
+                        Кратность страниц:
+                    </label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="variables[stitching_type][{{ index }}][block][frequency_of_pages]"
+                        id="stitchingTypeFrequencyOfPages{{ index }}"
+                        placeholder="Кратность страниц"
+                        value="{{ way.getFrequencyOfPages() }}"
+                        min="1">
+                </div>
+            </div>
+
+            <div class="form-row mt-3">
+                <div class="form-group col-3 pr-3">
+                    <label for="stitchingTypeNumberOfCopybooks{{ index }}">
+                        Кол-во тетрадей:
+                    </label>
+                    <input
+                        class="form-control"
+                        name="variables[stitching_type][{{ index }}][block][number_of_copybooks]"
+                        id="stitchingTypeNumberOfCopybooks{{ index }}"
+                        placeholder="Формула кол-ва тетрадей или число"
+                        value="{{ way.getFormulaOfNumberOfCopybooks() }}">
+                </div>
+            </div>
+            <p class="text-muted">Доступные переменные: {Тираж}, {Кол-во страниц в блоке}.</p>
+        </div>
+    </div>
+</div>

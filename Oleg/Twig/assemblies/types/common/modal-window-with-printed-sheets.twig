@@ -1,0 +1,45 @@
+{# The modal window with available printed sheets #}
+<div class="modal modal-with-printed-sheets tabulator-table-js-container" data-backdrop="static">
+    <div class="modal-dialog">
+        <input type="hidden" class="target-container-type">
+        <input type="hidden" class="selector-of-template-of-list">
+        <input type="hidden" class="selector-of-template-with-list-item">
+        <input type="hidden" class="selector-of-template-with-rules">
+        <input type="hidden" class="selector-of-container-with-rules">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Добавление печатного листа: <span class="modal-with-printed-sheets__title"></span>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <input
+                            type="text"
+                            name="search"
+                            value=""
+                            class="form-control table-with-printed-sheets__title-for-filter"
+                            placeholder="Введите имя печатного листа">
+                    </div>
+                </div>
+                <div class="form-group mt-3" style="overflow: auto;">
+                    <div class="table-responsive table-with-printed-sheets table-container">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button class="btn btn-secondary mr-auto" data-dismiss="modal">Закрыть</button>
+                <span class="mr-3">Выбрано листов: <span class="table-with-printed-sheets__row-counter">0</span></span>
+                <button class="btn btn-primary" id="addSheetsOfModalWindow">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+	<script src="{{ asset_spc('build/assembly__list_of_sheets.js') }}"></script>
+{% endblock %}

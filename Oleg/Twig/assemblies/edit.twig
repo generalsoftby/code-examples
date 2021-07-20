@@ -1,0 +1,48 @@
+{% import 'calculator/macros/index.twig' as helpers %}
+
+{% extends 'layout' %}
+
+{% block page_title %}{{ assembly.getName() }} ({{ assembly.calculator.title_system }}){% endblock %}
+
+{% block heading %}
+    <span class="page-header__title"><a href="/"><svg width="22" height="22" class="page-header__desktop-icon mb-2"></svg></a> /
+        <a href="{{ route('calculator.items.index') }}">Калькуляторы</a> /
+        <a href="{{ route('calculator.items.edit', assembly.calculator_id) }}">{{ assembly.calculator.title_system }}</a> /
+        Редактирование сборки
+    </span>
+{% endblock %}
+
+{% block content %}
+    {{ form_model(calculator, {'url': route('calculator.assembly.update', assembly.id), 'method': 'PUT', 'enctype': 'multipart/form-data', 'class': 'js--calculatorValidationFrom' }) }}
+        <div class="row">
+            <div class="col mb-3">
+                <h2>Значения сборки:</h2>
+                {% for attribute_value in assembly.attribute_values %}
+                    <div class="form-group">
+                        <label class="col-form-label" for="assembly_val_{{ attribute_value.id }}">{{ attribute_value.attribute.title }}:</label>
+                        <input type="text" id="assembly_val_{{ attribute_value.id }}" class="form-control" disabled value="{{ attribute_value.value }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col">
+                <h2>Продукты:</h2>
+                {{ form_select("products[]", products, selected_products, {"class": "form-control select2", "multiple": "multiple"}) }}
+            </div>
+            <div class="col">
+                <h2>Участки:</h2>
+                {{ form_select("areas[]", areas, selected_areas, {"class": "form-control select2", "multiple": "multiple"}) }}
+            </div>
+        </div>
+
+        {# Shows templates of types for pricing rules of assemblies #}
+        {% include 'calculator/assembly/types' %}
+    {{ form_close }}
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{{ asset_spc('build/calculator_edit__assembly.js') }}"></script>
+{% endblock %}

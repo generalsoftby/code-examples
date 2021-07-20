@@ -1,0 +1,20 @@
+{# Sets the template of an ID or assignes the given ID #}
+{% set id = id ?? '${ id }' %}
+
+{# Sets the template of an index or assignes the given index #}
+{% set index = index ?? '${ index }' %}
+
+<tr data-index="{{ index }}">
+    <td>
+        <input type="number" name="{{ prefixName }}[sheets][{{ id }}][wholesale][days_items][{{ index }}][number_of_printed_sheets][min]" class="form-control form-control-sm" min="1" value="{{ minNumberOfPrintedSheets }}">
+    </td>
+    <td>
+        <input type="number" name="{{ prefixName }}[sheets][{{ id }}][wholesale][days_items][{{ index }}][number_of_printed_sheets][max]" class="form-control form-control-sm" min="1" value="{{ maxNumberOfPrintedSheets }}">
+    </td>
+    <td>
+        <input type="number" name="{{ prefixName }}[sheets][{{ id }}][wholesale][days_items][{{ index }}][days]" class="form-control form-control-sm" min="0" value="{{ interval.getDays() ?? 0 }}">
+    </td>
+    <td>
+        <span class="fa fa-times pointer pointer_hover-color_warning wholesale__remove-interval"></span>
+    </td>
+</tr>

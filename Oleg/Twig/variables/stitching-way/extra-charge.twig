@@ -1,0 +1,20 @@
+<div class="form-group">
+    <label class="col-form-label">Дополнительная стоимость:</label>
+    <div class="form-row">
+        <div class="col-1">
+            <input
+                type="number"
+                name="{{ prefix_name }}[extra_charge][value]"
+                value="{{ value ?? 0 }}"
+                class="form-control form-control-sm types-of-pricing-rules__extra-charge-value"
+                min="0">
+        </div>
+        <div class="col-4 input-group ml-3">
+            {% include 'calculator/assembly/types/common/currencies' with {
+                name: prefix_name ~ '[extra_charge][currency]',
+                className: 'types-of-pricing-rules__extra-charge-currency',
+                currency: currency
+            } only %}
+        </div>
+    </div>
+</div>

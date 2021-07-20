@@ -1,0 +1,72 @@
+{# Sets the template of an ID or assigns the given ID #}
+{% set id = id ?? '${ id }' %}
+
+{# Sets the template of an index or assigns the given index #}
+{% set index = index ?? '${ index }' %}
+
+{# Sets a state of using template #}
+{% set isTemplate = id == '${ id }' %}
+
+<tr data-index="{{ index }}">
+    <td>
+        <input
+            type="text"
+            name="{{ prefixName }}[sheets][{{ id }}][custom_edition_size][intervals][{{ index }}][start]"
+            class="form-control form-control-sm custom-edition-size__start"
+            value="{{ isTemplate ? '${ start }' : interval.getStart() }}">
+    </td>
+    <td>
+        <input
+            type="text"
+            name="{{ prefixName }}[sheets][{{ id }}][custom_edition_size][intervals][{{ index }}][end]"
+            class="form-control form-control-sm custom-edition-size__end"
+            value="{{ isTemplate ? '${ end }' : interval.getEnd() }}">
+    </td>
+    <td>
+        <div class="form-row align-items-center">
+            <div class="col-5">
+                <input
+                    type="text"
+                    name="{{ prefixName }}[sheets][{{ id }}][custom_edition_size][intervals][{{ index }}][cost]"
+                    class="form-control form-control-sm custom-edition-size__cost"
+                    value="{{ isTemplate ? '${ cost }' : interval.getValueOfCost() }}">
+            </div>
+            <div class="col-7">
+                {% include 'calculator/assembly/types/common/currencies' with {
+                    name: prefixName ~ '[sheets][' ~ id ~ '][custom_edition_size][intervals][' ~ index ~ '][currency]',
+                    className: 'custom-edition-size__currency',
+                    currency: interval.getCurrencyOfCost()
+                } only %}
+            </div>
+        </div>
+    </td>
+    <td>
+        {% include 'calculator/assembly/types/common/price-per' with {
+            name: prefixName ~ '[sheets][' ~ id ~ '][custom_edition_size][intervals][' ~ index ~ '][unit]',
+            className: 'custom-edition-size__unit',
+            value: interval.getCostUnit()
+        } only %}
+    </td>
+    <td>
+        <input
+            type="number"
+            name="{{ prefixName }}[sheets][{{ id }}][custom_edition_size][intervals][{{ index }}][days]"
+            class="form-control form-control-sm custom-edition-size__days"
+            value="{{ isTemplate ? '${ days }' : (interval.getDays() ?? 0) }}">
+    </td>
+    <td>
+        <label class="custom-control custom-checkbox mt-3">
+            <input
+                type="checkbox"
+                name="{{ prefixName }}[sheets][{{ id }}][custom_edition_size][intervals][{{ index }}][weekend]"
+                class="custom-control-input custom-edition-size__weekend"
+                value="1"
+                {{ interval.worksOnWeekends() ? ' checked' : '' }}>
+            <span class="custom-control-indicator custom-control-label"></span>
+            <span class="custom-control-description"></span>
+        </label>
+    </td>
+    <td>
+        <span class="fa fa-times pointer pointer_hover-color_warning custom-edition-size__remove-interval"></span>
+    </td>
+</tr>

@@ -1,0 +1,18 @@
+<div class="table-responsive custom-numbers__table">
+    <table class="table table-striped mt-3 sort-table">
+        <thead>
+            <tr>
+                <th>Мин. кол-во</th>
+                <th>Макс. кол-во</th>
+                <th>Цена</th>
+                <th width="52px"><!-- Кнопка "Удалить" --></th>
+            </tr>
+        </thead>
+        <tbody class="custom__intervals {{ classNameOfTBody }}">
+            {% include 'calculator/items/variables/intervals/content-of-tbody' with {
+                intervals: intervals,
+                prefixName: prefixName,
+            } only %}
+        </tbody>
+    </table>
+</div>

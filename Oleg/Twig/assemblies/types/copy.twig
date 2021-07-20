@@ -1,0 +1,57 @@
+{# The settings for copied pricing rules #}
+<div class="types-of-pricing-rules__copy">
+    <label class="custom-control custom-radio">
+        <input name="pricing_type" type="radio" class="custom-control-input types-of-pricing-rules__type" value="copy" {{ type == 'copy' ? 'checked' : '' }}>
+        <span class="custom-control-indicator custom-control-label"></span>
+        <span class="custom-control-description pl-1">
+            Использовать правила ценообразования другой сборки.
+        </span>
+    </label>
+
+    <div class="types-of-pricing-rules__content mt-2 ml-4 mb-2" {{ type != 'copy' ? 'hidden' : '' }}>
+        <div class="mb-3 pricing-rules__link-to-original-assembly" {{ pricingRule is null or pricingRule.hasRelatedAssembly() == false ? 'hidden' : '' }}>
+            {% if pricingRule.hasRelatedAssembly() %}
+                <a href="{{ route('calculator.assembly.edit', pricingRule.getAssemblyId()) }}" target="_blank">
+                    {{ pricingRule.getCalculatorTitle() ~ ' | ' ~ pricingRule.getAssemblyTitle() }}
+                </a>
+            {% else %}
+                {# It to set href and title from JS #}
+                <a href="" target="_blank"></a>
+            {% endif %}
+
+            {# The route to an assembly. It uses to generate URL #}
+            <span id="routeOfAssembly" hidden>{{ url('/') }}/calculator/assembly/${ id }/edit</span>
+        </div>
+
+        {% if pricingRule.hasRelation() and pricingRule.hasRelationWithCalculator() == false %}
+            <div class="text-danger mb-3">
+                У текущей сборки задана другая сборка, но калькулятор этой сборки не может быть получен.
+            </div>
+        {% endif %}
+
+        {% if pricingRule.hasRelation() and pricingRule.isConfigured() == false %}
+            <div class="text-danger mb-3">
+                Текущая сборка настроена,
+                но <a href="{{ route('calculator.assembly.edit', pricingRule.getAssemblyId()) }}" target="_blank">указанная сборка</a>
+                не может быть обработана во время расчета. Либо она не настроена, либо имеет неподдерживаемый тип.
+            </div>
+        {% endif %}
+
+        <input type="hidden" class="pricing-rules__calculator-type-id" value="{{ pricingRule.getCalculatorTypeId() }}">
+        <input type="hidden" class="pricing-rules__current-assembly-id" value="{{ assembly.id }}">
+
+        <input type="hidden" value="{{ pricingRule.getCalculatorId() }}" name="pricing_rules[copy][calculator_id]" class="pricing-rules__calculator-id">
+        <input type="hidden" value="{{ pricingRule.getAssemblyId() }}" name="pricing_rules[copy][assembly_id]" class="pricing-rules__assembly-id">
+
+        <button type="button" class="btn btn-default mr-2 pricing-rules__reset-copy" {{ pricingRule.hasRelation() == false ? 'hidden' : '' }}>Сбросить</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalWindowOfCalculatorsAndAssemblies">Выбрать</button>
+    </div>
+</div>
+
+{% block scripts %}
+    <script src="{{ asset_spc('build/calculator_edit__assembly_copy_assembly.js') }}"></script>
+{% endblock %}
+
+
+{# The modal window with assemblies #}
+{% include 'calculator/assembly/types/elements-for-copy/modal-window-of-assemblies' %}

@@ -1,0 +1,136 @@
+<div class="mt-3 print-formats print-formats_{{ name }}">
+    {% include 'calculator/items/variables/header-of-component' %}
+
+    {# Shows the table of print formats #}
+    <div class="table-responsive">
+        <table class="table table-striped mt-3 sort-table">
+            <thead>
+                <tr>
+                    <th width="52px"><!-- Кнопка "Перемещение" --></th>
+                    <th>Название</th>
+                    <th>Ширина</th>
+                    <th>Длина</th>
+                    <th width="52px"><!-- Кнопка "Удалить" --></th>
+                </tr>
+            </thead>
+            <tbody class="print-formats__formats">
+                {% for format in settings.getSheetFormatCollection() %}
+                    {% include 'calculator/items/variables/print-format-row' with {
+                        id: loop.index,
+                        name: name,
+                        formatName: format.getName(),
+                        width: format.getWidth(),
+                        height: format.getHeight(),
+                    } only %}
+                {% else %}
+                    {% include 'calculator/items/variables/print-format-row' with {
+                        id: '1',
+                        name: name,
+                    } only %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-3">
+        <button type="button" class="btn btn-primary print-formats__add-format">
+            <span class="fa fa-plus"></span><span class="pl-2">Добавить формат</span>
+        </button>
+        <template class="print-formats__template print-formats__template_{{ name }}">
+            {% include 'calculator/items/variables/print-format-row' with {
+                name: name
+            } only %}
+        </template>
+    </div>
+
+    <div class="mt-3">
+        <label class="custom-control custom-checkbox">
+            <input
+                type="checkbox"
+                name="variables[{{ name }}][rules][fixed_print_formats]"
+                value="1"
+                class="custom-control-input print-formats__fixed-print-formats"
+                {{ settings.doesInstanceUseFixedFormats() ? 'checked' : '' }}>
+            <span class="custom-control-indicator custom-control-label"></span>
+            <span class="custom-control-description ml-1">Ограниченные размеры</span>
+        </label>
+    </div>
+
+    {# Rules for custom print formats #}
+    <div class="print-formats__rules" {{ settings.doesInstanceUseFixedFormats() ? 'hidden' : '' }}>
+        <div class="form-row mt-3">
+            <div class="form-group col-md-3 pr-3">
+                <label for="">
+                    Мин. ширина, мм:
+                </label>
+                <input
+                    type="number"
+                    class="form-control"
+                    name="variables[{{ name }}][rules][width][min]"
+                    value="{{ settings.getMinWidth() }}"
+                    min="1">
+            </div>
+            <div class="form-group col-md-3 pl-3 pr-3">
+                <label for="">
+                    Макс. ширина, мм:
+                </label>
+                <input
+                    type="number"
+                    class="form-control"
+                    name="variables[{{ name }}][rules][width][max]"
+                    value="{{ settings.getMaxWidth() }}"
+                    min="1">
+            </div>
+            <div class="form-group col-md-6">
+                <label class="custom-control custom-checkbox mt-4">
+                    <input
+                        type="checkbox"
+                        name="variables[{{ name }}][rules][width][visible_limitation]"
+                        value="1"
+                        class="custom-control-input" {{ settings.hasWidthVisibleLimitation() ? 'checked' : '' }}>
+                    <span class="custom-control-indicator custom-control-label"></span>
+                    <span class="custom-control-description ml-1">Отображать ограничения в калькуляторе</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-row mt-3">
+            <div class="form-group col-md-3 pr-3">
+                <label for="">
+                    Мин. высота, мм:
+                </label>
+                <input
+                    type="number"
+                    class="form-control"
+                    name="variables[{{ name }}][rules][height][min]"
+                    value="{{ settings.getMinHeight() }}"
+                    min="1">
+            </div>
+            <div class="form-group col-md-3 pl-3 pr-3">
+                <label for="">
+                    Макс. высота, мм:
+                </label>
+                <input
+                    type="number"
+                    class="form-control"
+                    name="variables[{{ name }}][rules][height][max]"
+                    value="{{ settings.getMaxHeight() }}"
+                    min="1">
+            </div>
+            <div class="form-group col-md-6">
+                <label class="custom-control custom-checkbox mt-4">
+                    <input
+                        type="checkbox"
+                        name="variables[{{ name }}][rules][height][visible_limitation]"
+                        value="1" class="custom-control-input"
+                        {{ settings.hasHeightVisibleLimitation() ? 'checked' : '' }}>
+                    <span class="custom-control-indicator custom-control-label"></span>
+                    <span class="custom-control-description ml-1">Отображать ограничения в калькуляторе</span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+    {{ includeScriptOnce('build/calculator_items_variables__print_formats.js') }}
+{% endblock %}
