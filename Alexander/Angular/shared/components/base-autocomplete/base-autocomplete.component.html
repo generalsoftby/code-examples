@@ -1,0 +1,20 @@
+<div [(isOpen)]="isOpen" dropdown>
+
+    <div dropdownToggle>
+        <ng-content></ng-content>
+    </div>
+
+    <ul *dropdownMenu
+        [hidden]="!suggestions?.length"
+        class="dropdown-menu"
+    >
+
+        <li (click)="selectValue(option, $event)"
+            *ngFor="let option of suggestions"
+            class="dropdown-item"
+        >
+            {{ option }}
+        </li>
+
+    </ul>
+</div>

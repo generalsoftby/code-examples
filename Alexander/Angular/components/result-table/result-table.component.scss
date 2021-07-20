@@ -1,0 +1,50 @@
+.results-table {
+    @media(min-width: 1300px) {
+        table-layout: fixed;
+    }
+
+    th.sortable {
+        cursor: pointer !important;
+
+        .sort-icon {
+            width: 13px;
+            height: 13px;
+            display: inline-block;
+            margin-left: 5px;
+        }
+    }
+
+    @media(min-width: 1300px) {
+        thead tr th, tbody tr td {
+            max-width: 12.5%;
+            width: 12.5%;
+            word-wrap:break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &:nth-child(1) {
+                min-width: 130px;
+            }
+
+            &:nth-child(4) {
+                min-width: 90px;
+            }
+
+            &:nth-child(7) {
+                min-width: 100px;
+            }
+        }
+    }
+
+    @media(max-width: 1299px) {
+        thead tr th, tbody tr td {
+            &:nth-child(5) {
+                .subjects > div > div {
+                    max-width: 113px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}

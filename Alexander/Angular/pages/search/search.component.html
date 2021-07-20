@@ -1,0 +1,11 @@
+<div class="tab-content">
+    <widget-component>
+        <filters-component #filters (performSearch)="performSearch($event)"
+                           [filters]="presetRequest?.filters"
+                           widget-body></filters-component>
+    </widget-component>
+
+    <widget-component>
+        <result-table #results (paginate)="paginate($event)" (sort)="sort($event)" widget-body></result-table>
+    </widget-component>
+</div>

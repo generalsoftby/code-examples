@@ -1,0 +1,120 @@
+<div class="filters-form">
+    <form (ngSubmit)="onSubmit()"
+          [formGroup]="filtersForm"
+          class="form-horizontal">
+        <fieldset>
+            <div class="row remove-paddings filters-row">
+                <div class="col-lg-3 col-md-3 filter">
+                    <div class="row remove-paddings">
+                        <label class="col-form-label text-md-left col-lg-4 col-md-5" for="source">
+                            {{ 'SEARCH.FIELDS.SOURCE' | translate }}
+                        </label>
+                        <div class="col-lg-8 col-md-7">
+                            <base-autocomplete #sourceAutocomplete
+                                               (selectSuggestion)="filtersForm.controls.source.setValue($event)"
+                                               [suggestions]="autocompleteData.source">
+                                <base-input (input)="sourceAutocomplete.open($event)"
+                                            formControlName="source"
+                                            id="source">
+                                </base-input>
+                            </base-autocomplete>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 filter">
+                    <div class="row remove-paddings">
+                        <label class="col-form-label text-md-left col-lg-4 col-md-5" for="destination">
+                            {{ 'SEARCH.FIELDS.DESTINATION' | translate }}
+                        </label>
+                        <div class="col-lg-8 col-md-7">
+                            <base-autocomplete #destinationAutocomplete
+                                               (selectSuggestion)="filtersForm.controls.destination.setValue($event)"
+                                               [suggestions]="autocompleteData.destination">
+                                <base-input (input)="destinationAutocomplete.open($event)"
+                                            formControlName="destination"
+                                            id="destination">
+                                </base-input>
+                            </base-autocomplete>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 filter">
+                    <div class="row remove-paddings">
+                        <label class="col-form-label text-md-left col-lg-4 col-md-6" for="subjects_type">
+                            {{ 'SEARCH.FIELDS.SUBJECT_TYPE' | translate }}
+                        </label>
+                        <div class="col-lg-8 col-md-6">
+                            <base-select [options]="subjectTypes"
+                                         formControlName="subjectsType"
+                                         id="subjects_type">
+                            </base-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 filter">
+                    <div class="row remove-paddings">
+                        <label class="col-form-label text-md-left col-lg-4 col-md-4" for="subjects">
+                            {{ 'SEARCH.FIELDS.SUBJECT' | translate }}
+                        </label>
+                        <div class="col-lg-8 col-md-8">
+                            <base-autocomplete #subjectAutocomplete
+                                               (selectSuggestion)="filtersForm.controls.subjects.setValue($event)"
+                                               [suggestions]="autocompleteData.subjects">
+                                <base-input (input)="subjectAutocomplete.open($event)"
+                                            formControlName="subjects"
+                                            id="subjects"></base-input>
+                            </base-autocomplete>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row remove-paddings filters-row">
+                <div class="col-lg-3 col-md-3 filter">
+                    <div class="row remove-paddings">
+                        <label class="col-form-label text-md-left col-lg-4 col-md-5" for="from">
+                            {{ 'SEARCH.FIELDS.FROM' | translate }}
+                        </label>
+                        <div class="col-lg-8 col-md-7">
+                            <base-date-picker formControlName="from"
+                                              id="from">
+                            </base-date-picker>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 filter">
+                    <div class="row remove-paddings">
+                        <label class="col-form-label text-md-left col-lg-4 col-md-5" for="to">
+                            {{ 'SEARCH.FIELDS.TO' | translate }}
+                        </label>
+                        <div class="col-lg-8 col-md-7">
+                            <base-date-picker formControlName="to"
+                                              id="to">
+                            </base-date-picker>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 filter">
+                    <div class="row remove-paddings">
+                        <label class="col-form-label text-md-left col-lg-4 col-md-6" for="action">
+                            {{ 'SEARCH.FIELDS.ACTION' | translate }}
+                        </label>
+                        <div class="col-lg-8 col-md-6">
+                            <base-select [options]="actions"
+                                         formControlName="action"
+                                         id="action">
+                            </base-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 form-actions">
+                    <button (click)="clear()" class="btn btn-secondary" type="button">
+                        {{ 'COMMON.BUTTON.CLEAR' | translate }}
+                    </button>
+                    <button (submit)="onSubmit()" class="btn btn-primary" type="submit">
+                        {{ 'COMMON.BUTTON.SEARCH' | translate }}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

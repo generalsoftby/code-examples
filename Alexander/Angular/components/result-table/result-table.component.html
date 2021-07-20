@@ -1,0 +1,114 @@
+<table class="results-table custom-table">
+    <thead>
+    <tr>
+        <th (click)="changeSorting(column)" *ngFor="let column of columns" [ngClass]="{ sortable: column.sort }">
+            {{ column.title }}
+            <div class="sort-icon">
+                <i *ngIf="sortingState.getColumn() === column.name"
+                   [ngClass]="{ 'fa-chevron-down': sortingState.getOrder() === 'desc', 'fa-chevron-up': sortingState.getOrder() === 'asc' }"
+                   class="fa"
+                >
+                </i>
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of rows">
+        <td>
+            {{ row.timestamp.toLocaleString() }}
+        </td>
+
+        <td>
+            {{ row.auditSource }}
+        </td>
+
+        <td>
+            <div *ngIf="row.destinators">
+                {{ row.destinators.length ? row.destinators[0].id : '' }}
+            </div>
+        </td>
+
+        <td>
+            {{ row.action }}
+        </td>
+
+        <td>
+            <div [ngSwitch]="row.subjects.length">
+                <!-- No subjects -->
+                <div *ngSwitchCase="0"></div>
+
+                <!-- Single subject -->
+                <div *ngSwitchCase="1" class="subjects">
+                    <div [ngSwitch]="row.subjects[0].type">
+                        <div *ngSwitchCase="'Document'">
+                            {{ row.subjects[0].documentId }}
+                        </div>
+                        <div *ngSwitchCase="'Patient'">
+                            <div>{{ row.subjects[0].patientName }}</div>
+                            <div>{{ row.subjects[0].patientId }}</div>
+                        </div>
+                        <div *ngSwitchCase="'Study'">
+                            <div>{{ row.subjects[0].studyIuid }}</div>
+                            <div>{{ row.subjects[0].accessionNumber }}</div>
+                            <div>{{ row.subjects[0].sopClass }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Multiple subjects -->
+                <div *ngSwitchDefault>
+                    <button (click)="showDetails(row)" class="btn btn-sm btn-primary"
+                            type="button">
+                        {{ 'SEARCH.OPEN_DETAILS' | translate }}
+                    </button>
+                </div>
+            </div>
+        </td>
+
+        <td>
+            <div [ngSwitch]="row.subjects.length">
+                <div *ngSwitchCase="0"></div>
+                <div *ngSwitchCase="1">
+                    {{ row.subjects[0].type }}
+                </div>
+                <div *ngSwitchDefault>
+                    <button (click)="showDetails(row)" class="btn btn-sm btn-primary"
+                            type="button">
+                        {{ 'SEARCH.OPEN_DETAILS' | translate }}
+                    </button>
+                </div>
+            </div>
+        </td>
+
+        <td>
+            {{ row.outcome }}
+        </td>
+
+        <td>
+            <button (click)="showDetails(row)" class="btn btn-sm btn-primary"
+                    type="button">
+                {{ 'SEARCH.OPEN_DETAILS' | translate }}
+            </button>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+<pagination *ngIf="config.paging && data.total > pagination.perPage"
+            class="pagination-sm"
+            [ngModel]="pagination.page"
+            [totalItems]="data.total"
+            [itemsPerPage]="pagination.perPage"
+            [maxSize]="maxSize"
+            [boundaryLinks]="true"
+            [rotate]="false"
+            [firstText]="'COMMON.PAGINATION.FIRST' | translate"
+            [previousText]="'COMMON.PAGINATION.PREVIOUS' | translate"
+            [nextText]="'COMMON.PAGINATION.NEXT' | translate"
+            [lastText]="'COMMON.PAGINATION.LAST' | translate"
+            (pageChanged)="changePage($event)"
+            (numPages)="numPages = $event"
+>
+</pagination>
